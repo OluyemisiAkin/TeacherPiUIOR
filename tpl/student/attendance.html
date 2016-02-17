@@ -1,0 +1,98 @@
+<div ng-controller="studentAttendance">
+<div class="bg-light lter b-b wrapper-md hidden-print">
+  <h1 class="m-n font-thin h3">Attendance</h1>
+</div>
+<div class="text-center" ng-hide="httpStatus">
+      <h4 class="text-center"><span><i class="fa fa-spinner fa-rotate-270 fa-spin"></i> Loading Active classes....</span></h4>
+</div>
+<div class="wrapper-md">
+  <div class="row row-sm">
+  <div class="m-b-md">
+    <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+  </div>
+  <div class="col-lg-2 col-md-4 col-sm-6">
+  </div>
+  <div class="col-lg-2 col-md-4 col-sm-6">
+  </div>
+  <div class="col-lg-4 col-md-4 col-sm-6" ng-show="activeClass">
+      <div class="panel b-a">
+        <div class="panel-heading bg-success no-border">
+          <h3 class="text-center font-bold">{{course.course_code}}</h3>        
+        </div>
+        <div class="wrapper text-center b-b b-light">
+          <span> Class Ends in: </span>
+          <h3 class="m-t-none">
+            <span class="text-2x text-lt">{{hr}}:{{min}}:{{secs}}</span>
+          </h3>
+        </div>
+        <ul class="list-group text-center no-borders m-t-sm">
+          <li class="list-group-item">
+            <i class="icon-check text-success m-r-xs"></i> {{course.course_title}}<br> {{course.course_info}}
+          </li>          
+        </ul>
+        <div class="panel-footer text-center">
+          <button href class="btn btn-success font-bold m" ng-click="attend()" ng-disabled="attended" >
+            <span class="text" ng-hide="loading">Mark Attendance</span>
+            <span class="text" ng-show="loading">Submiting...</span></button>
+            <i class="fa fa-spin fa-spinner" ng-show="loading"  ng-class="{'fa-spin' : loading}"id="spin"></i>
+        </div>
+      </div>
+  </div>
+  </div>
+  <!-- <div class="panel panel-success">
+        <div class="panel-heading">
+          Your Recent Classes
+        </div>
+        <ul class="list-group alt">
+          <li class="list-group-item">
+            <div class="media">
+              <span class="pull-left thumb-sm"><img src="img/a1.jpg" alt="..." class="img-circle"></span>
+              <div class="pull-right text-success m-t-sm">
+                <i class="fa fa-circle"></i>
+              </div>
+              <div class="media-body">
+                <div><a href>Class 1</a></div>
+                <small class="text-muted">Date/Time of Class</small>
+              </div>
+            </div>
+          </li>
+          <li class="list-group-item">
+            <div class="media">
+              <span class="pull-left thumb-sm"><img src="img/a2.jpg" alt="..." class="img-circle"></span>
+              <div class="pull-right text-danger m-t-sm">
+                <i class="fa fa-circle"></i>
+              </div>
+              <div class="media-body">
+                <div><a href>Class 2</a></div>
+                <small class="text-muted">Date/Time of Class</small>
+              </div>
+            </div>
+          </li>
+          <li class="list-group-item">
+            <div class="media">
+              <span class="pull-left thumb-sm"><img src="img/a3.jpg" alt="..." class="img-circle"></span>
+              <div class="pull-right text-danger m-t-sm">
+                <i class="fa fa-circle"></i>
+              </div>
+              <div class="media-body">
+                <div><a href>Class 3</a></div>
+                <small class="text-muted">Date/Time of Class</small>
+              </div>
+            </div>
+          </li>
+          <li class="list-group-item">
+            <div class="media">
+              <span class="pull-left thumb-sm"><img src="img/a4.jpg" alt="..." class="img-circle"></span>
+              <div class="pull-right text-success m-t-sm">
+                <i class="fa fa-circle"></i>
+              </div>
+              <div class="media-body">
+                <div><a href>Class 4</a></div>
+                <small class="text-muted">Date/Time of Class</small>
+              </div>
+            </div>
+          </li>
+        </ul>
+  </div> -->
+</div>
+</div>

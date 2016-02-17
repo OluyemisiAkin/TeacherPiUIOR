@@ -1,0 +1,30 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Card Logs</h1>
+</div>
+<div class="wrapper-md">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      Card logs
+    </div>
+    <div class="table-responsive">
+      <table class="table table-striped m-b-none" ng-controller="cardLogs">
+        <thead>
+          <tr>
+            <th  style="width:25%">Network</th>
+            <th  style="width:25%">Amount</th>
+            <th  style="width:25%">Count</th>
+            <th  style="width:25%">Logo</th>            
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="(network,values) in card_countss">
+            <td>{{network}}</td>
+            <td></td>
+            <td></td>
+            <td></td>            
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

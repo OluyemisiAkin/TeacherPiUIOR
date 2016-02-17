@@ -1,0 +1,62 @@
+<div class="container w-xxl w-auto-xs" ng-controller="SignupFormController" ng-init="app.settings.container = false;">
+  <a href class="navbar-brand block m-t">{{app.name}}</a>
+  <div class="m-b-lg">
+    <form name="form" class="form-validation">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <span class="h4">Register</span>
+            </div>
+            <div class="m-b-md">
+              <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+            </div>
+            <div class="panel-body">
+              <p class="text-muted">Please fill the information to continue</p>
+              <div class="form-group">
+                <label>Username</label>
+                <input type="text" class="form-control" ng-model="user.username" required >
+              </div>
+              <div class="form-group">
+                <label>Identification Number <em class="text-muted">(Matric No or Staff ID)</em></label>
+                <input type="text" class="form-control" ng-model="user.matric_no" ng-pattern="/^[a-zA-Z0-9/]{11,14}$/" required >
+              </div>
+              <div class="form-group">
+                <label>First Name</label>
+                <input type="text" class="form-control" ng-model="user.first_name" required >
+              </div>
+              <div class="form-group">
+                <label>Last Name</label>
+                <input type="text" class="form-control" ng-model="user.last_name" required >
+              </div>
+              <div class="form-group">
+                <label>Email</label>
+                <input type="email" class="form-control" ng-model="user.email" required >
+              </div>
+              <div class="form-group pull-in clearfix">
+                <div class="col-sm-6">
+                  <label>Enter password</label>
+                  <input type="password" class="form-control" name="password" ng-model="user.password" required >   
+                </div>
+                <div class="col-sm-6">
+                  <label>Confirm password</label>
+                  <input type="password" class="form-control" name="confirm_password" required ng-model="user.confirm_password" ui-validate=" '$value==user.password' " ui-validate-watch=" 'password' ">
+                  <span ng-show='form.confirm_password.$error.validator'>Passwords do not match!</span>
+                </div>
+              </div>             
+            </div>
+            <footer class="panel-footer text-center bg-light lter"><!-- 
+              <button type="submit" class="btn btn-success" ng-disabled="form.$invalid" ng-click="signUp()">Register</button> -->
+              <button type="submit" class="btn btn-success" ng-disabled="form.$invalid" ng-click="signUp()">
+                  <span class="text" ng-hide="loading">Register</span>
+                  <span class="text" ng-show="loading">Registering....</span> 
+                  <i class="fa fa-spin fa-spinner" ng-show="loading"  ng-class="{'fa-spin' : loading}"id="spin"></i>
+              </button>
+              <div class="line line-dashed"></div>
+                <p class="text-center"><small>Do you have an account already?</small></p>
+                <button ui-sref="access.signin" class="btn btn-primary">Sign In</button>
+            </footer>
+
+          </div>
+    </form>
+  </div>
+  <div class="text-center" ng-include="'tpl/blocks/page_footer.html'"></div>
+</div>

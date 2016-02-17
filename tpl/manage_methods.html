@@ -1,0 +1,62 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Recharge Methods</h1>
+</div>
+<div class="wrapper-md" ng-controller="manageMethods">
+  <div class="m-b-md">
+    <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      Method Status
+    </div>
+    <div class="text-center" ng-hide="httpLoading">
+      <h4 class="text-center"><span><i class="fa fa-spinner fa-rotate-270 fa-spin"></i> Loading....</span></h4>
+    </div>
+    <div class="panel-body b-b b-light">
+      Search: <input id="filter" type="text" class="form-control input-sm w-sm inline m-r"/>
+    </div>
+    <div>
+      <table class="table m-b-none" ui-jq="footable" data-filter="#filter" data-page-size="20">
+        <thead>
+          <tr>
+           <th>Method Name</th>
+           <th>Method Balance</th>
+           <th>Last User/Recipient</th>
+           <th>Network/Amount</th>
+           <th>Last Update</th>
+           <th>Status</th>
+           <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="(key,value) in methods">
+            <td>{{key}}</td>
+            <td>{{value.data}}</td>
+            <td>{{value.data.phone}}/{{value.data.recipient}}</td>
+            <td>{{value.data.network}}/{{value.data.amount}}</td>
+            <td>{{value.datetime | date:'yyyy-MM-dd HH:mm:ss Z'}}</td>
+            <td>
+            <span class="label bg-success" title="Active" ng-if="value.status=='ON'">Active</span>
+            <span class="label bg-danger" title="Inactive" ng-if="value.status=='OFF'">Inactive</span>
+            <span class="label bg-warning" title="Pending" ng-if="value.status=='PENDING'">Pending</span>         
+            </td>
+            <td>
+              <!-- label class="i-switch bg-warning pull-right" ng-init="showSpline=ON">
+                <input type="checkbox" ng-model="showSpline" class="ng-pristine ng-untouched ng-valid">
+                <i></i>
+            </label> -->
+            <switch id="enabled" name="enabled" ng-model="enabled" class="green"></switch>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot class="hide-if-no-paging">
+          <tr>
+            <td colspan="5" class="text-center">
+              <ul class="pagination"></ul>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>

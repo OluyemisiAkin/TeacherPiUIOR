@@ -1,0 +1,54 @@
+<div class="modal-body wrapper-lg">
+  <div class="row">
+      <tabset class="tab-container">
+    <tab>
+      <tab-heading>
+        Course 
+      </tab-heading>  
+      <form class="form-validation" method="get">
+         <div class="m-b-md">
+                <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+          </div>
+          <div class="panel-body">
+            <div class="form-group">
+              <label>Title</label>
+              <input type="text" class="form-control" ng-model="course.course_title" required >
+            </div>            
+            <div class="form-group pull-in clearfix">
+              <div class="col-sm-6">
+                <label>Code <em>(E.g EEE101)</em></label>
+                <input type="text" class="form-control" ng-model="course.course_code" ng-pattern="/^[a-zA-Z0-9/]{6}$/" required >
+              </div>
+              <div class="col-sm-6">
+                <label>Duration</label>
+                <select name="duration" class="form-control m-b" ng-model="course.duration">
+                  <option value="1">1 hr</option>
+                  <option value="2">2 hrs</option>
+                  <option value="3">3 hrs</option>
+                  <option value="4">4 hrs</option>
+                </select>   
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Description</label>
+              <textarea class="form-control" rows="6" placeholder="Other information about the course" ng-model="course.course_info"></textarea>
+            </div>         
+          <div class="form-group">
+            <!-- <div class="col-sm-4 col-sm-offset-4">
+              <button type="submit" class="btn btn-default">Cancel</button>
+              <button type="submit" class="btn btn-primary">Create</button>
+            </div> -->
+            <button type="submit" class="btn btn-success pull-right" ng-click="createCourse()">Save</button>
+          </div>
+          </div>
+      </form>     
+    </tab>
+    <tab>
+      <tab-heading>
+        Student Data
+      </tab-heading>      
+    </tab>    
+</tabset> 
+    
+  </div>
+</div>

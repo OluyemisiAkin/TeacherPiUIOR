@@ -1,0 +1,66 @@
+<div ng-controller="Course">
+<div class="bg-light lter b-b wrapper-md hidden-print">
+  <h1 class="m-n font-thin h3">Courses</h1>   
+</div>
+<div class="text-center" ng-hide="httpStatus">
+      <h4 class="text-center"><span><i class="fa fa-spinner fa-rotate-270 fa-spin"></i> Loading Active classes....</span></h4>
+</div>
+<div class="wrapper-md">
+  <div class="row">
+  <div class="m-b-md">
+    <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+  </div>
+    <div class="col-sm-6" ng-show="httpStatus" ng-repeat="course in courses">
+      <div class="panel b-a" >
+        <div class="panel-heading text-center bg-primary no-border">
+          <!-- <h4 class="text-u-c m-b-none">Start</h4> -->
+          <h4 class="m-t-none">
+            <span class="text-2x text-lt">{{course.course_code}}</span>
+          </h4>
+        </div>
+        <h4 class="m-t-none text-center">
+            <span class="list-group-item">{{course.course_title}}</span>
+        </h4>        
+        <div class="panel-footer" >
+        <!-- <span ng-controller="EditCourse">
+        <script type="text/ng-template" id="myModalContent.html">
+            <div ng-include="'tpl/modal.form.html'"></div>
+          </script>
+        <button class="btn btn-default font-bold m" ng-click="open('lg')">Edit Course</button>
+        </span>         -->
+        <button class="btn btn-default font-bold m" ng-click="editCourse(course)">Edit Course</button>
+        <button class="btn btn-default font-bold m" ng-click="deleteCourse(course)"><span class="glyphicon glyphicon-trash"></span></button>
+        <button type="submit" class="btn btn-success pull-right font-bold m" ng-click="startClass(course.course_code, course.duration)" ng-disabled="course.started || started">
+              <span class="text" ng-hide="loading">Start Class</span>
+              <span class="text" ng-show="loading">Starting...</span> 
+              <i class="fa fa-spin fa-spinner" ng-show="loading"  ng-class="{'fa-spin' : loading}"id="spin"></i>
+        </button>
+        <!-- <button type="submit" class="btn btn-default disabled pull-right font-bold m" ng-click="stopClass()" ng-show="started">
+              <span class="text" ng-hide="loading">End Class</span>
+              <span class="text" ng-show="loading">Ending...</span> 
+              <i class="fa fa-spin fa-spinner" ng-show="loading"  ng-class="{'fa-spin' : loading}"id="spin"></i>
+        </button> -->
+        <!-- <button class="btn btn-success pull-right font-bold m">Start Class</button> -->
+        </div>
+      </div>
+    </div> 
+    <ul>      
+    </ul>
+    <a ui-sref="app2.instructor.course-create" class="col-sm-6" >
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="clearfix text-center m-t">
+            <div class="inline">             
+              <div class="h4 m-t m-b-xs"><i class="fa fa-plus text-grey-600"></i></div>
+              <small class="text-muted m-b">Add Course</small>
+            </div>                      
+          </div>
+        </div>        
+      </div>
+    </a>
+
+    </div> 
+
+  </div>
+</div>
+</div>

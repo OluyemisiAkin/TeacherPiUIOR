@@ -1,0 +1,78 @@
+<div ng-controller="studentAttendance">
+<div class="bg-light lter b-b wrapper-md hidden-print">
+  <h1 class="m-n font-thin h3">Courses</h1>
+</div>
+<div class="text-center" ng-hide="httpStatus">
+      <h4 class="text-center"><span><i class="fa fa-spinner fa-rotate-270 fa-spin"></i> Loading Active classes....</span></h4>
+</div>
+<div class="wrapper-md">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <!-- <span class="label bg-danger pull-right m-t-xs">4 left</span> -->
+          Course List
+        </div>
+        <table class="table table-striped m-b-none">
+          <thead>
+            <tr>
+              <th>Course Code</th>
+              <th>Course Title</th>
+              <th>Course Duration</th>
+              <th>Course Info</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>CODE 1</td>
+              <td>Title</td>
+              <td>Duration</td>
+              <td>Info</td>
+              <td>
+                <button class="btn btn-default" ui-toggle-class="btn-success">
+                  <span class="text">Start Class</span>
+                  <span class="text-active">Stop Class</span>
+                </button>
+                <!-- <div class="progress progress-sm progress-striped active m-t-xs m-b-none">
+                  <div class="progress-bar bg-success" data-toggle="tooltip" data-original-title="80%" style="width: 80%"></div>
+                </div> -->
+              </td>              
+            </tr>
+            <tr>                    
+              <td>CODE 1</td>
+              <td>Title</td>
+              <td>Duration</td>
+              <td>Info</td>
+              <td>
+                <button class="btn btn-default" ui-toggle-class="btn-success">
+                  <span class="text">Start Class</span>
+                  <span class="text-active">Stop Class</span>
+                </button>
+                <!-- <div class="progress progress-sm progress-striped active m-t-xs m-b-none">
+                  <div class="progress-bar bg-success" data-toggle="tooltip" data-original-title="80%" style="width: 80%"></div>
+                </div> -->
+              </td>     
+            </tr>
+            <tr>                    
+              <td>CODE 1</td>
+              <td>Title</td>
+              <td>Duration</td>
+              <td>Info</td>
+              <td>
+               <button class="btn btn-default" ui-toggle-class="btn-success">
+                  <span class="text">Start Class</span>
+                  <span class="text-active">Stop Class</span>
+                </button>
+                <!-- <div class="progress progress-sm progress-striped active m-t-xs m-b-none">
+                  <div class="progress-bar bg-success" data-toggle="tooltip" data-original-title="80%" style="width: 80%"></div>
+                </div> -->
+              </td>     
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>    
+  </div>
+</div>
+</div>

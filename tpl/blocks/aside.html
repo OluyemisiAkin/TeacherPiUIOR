@@ -1,0 +1,48 @@
+<div class="aside-wrap">
+  <!-- if you want to use a custom scroll when aside fixed, use the slimScroll
+    <div class="navi-wrap" ui-jq="slimScroll" ui-options="{height:'100%', size:'8px'}">
+  -->
+  <div class="navi-wrap">
+    <!-- user -->
+    <div class="clearfix hidden-xs text-center" id="aside-user">
+      <div class="dropdown wrapper">
+        <a>
+          <span class="thumb-lg w-auto-folded avatar m-t-sm">
+            <img src="img/a0.jpg" class="img-full" alt="...">
+          </span>
+        </a>
+        <div ng-controller="UserData">
+          <span class="clear">
+            <span class="block m-t-sm">
+              <strong class="font-bold text-lt">{{user_data.first_name}} {{user_data.last_name}}</strong> 
+            </span>
+            <span class="text-muted text-xs block">Student</span>
+            <span class="text-muted text-xs block">{{user_data.id_no}}</span>
+          </span>
+        </div>
+        
+      </div>
+      <div class="line dk hidden-folded"></div>
+    </div>
+    <!-- / user -->
+
+    <!-- nav -->
+    <nav ui-nav class="navi" ng-include="'tpl/blocks/nav.html'"></nav>
+    <!-- nav -->
+
+    <!-- aside footer -->
+   <!--  <div class="wrapper m-t">
+      <div class="text-center-folded">
+        <span class="pull-right pull-none-folded">60%</span>
+        <span class="hidden-folded" translate="aside.MILESTONE">Milestone</span>
+      </div>
+      <progressbar value="60" class="progress-xxs m-t-sm dk" type="info"></progressbar>
+      <div class="text-center-folded">
+        <span class="pull-right pull-none-folded">35%</span>
+        <span class="hidden-folded" translate="aside.RELEASE">Release</span>
+      </div>
+      <progressbar value="35" class="progress-xxs m-t-sm dk" type="primary"></progressbar>
+    </div> -->
+    <!-- / aside footer -->
+  </div>
+</div>

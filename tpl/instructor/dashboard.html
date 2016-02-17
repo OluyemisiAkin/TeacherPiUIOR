@@ -1,0 +1,31 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm" ng-init="
+    app.settings.asideFolded = false; 
+    app.settings.asideDock = false;" ng-controller="Dashboard">
+  <!-- main -->
+  <div class="col">
+    <!-- main header -->
+    <div class="bg-light lter b-b wrapper-md">
+      <div class="row">
+        <div class="col-sm-6 col-xs-12">
+          <h1 class="m-n font-thin h3 text-black">Dashboard</h1>
+          <small class="text-muted">Welcome to Teacher Pi {{user_data.username | uppercase}}</small>
+        </div>        
+      </div>
+    </div>
+    <!-- / main header -->
+    <div class="wrapper-md" ng-controller="FlotChartDemoCtrl">
+      
+
+      <!-- service -->
+      <div class="panel hbox hbox-auto-xs no-border">       
+        <div class="col wrapper-lg w-lg bg-light dk r-r">
+          <h4 class="font-thin m-t-none m-b">Announcements</h4>       
+          <p class="text-muted">.....</p>
+        </div>
+      </div>
+    
+    </div>
+  </div>
+  <!-- / main -->
+ 
+</div>
