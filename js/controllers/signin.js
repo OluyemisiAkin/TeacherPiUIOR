@@ -72,25 +72,32 @@ app.controller('SigninFormController', ['$scope', '$http', '$state', 'Authentica
     })();
    
     
-    $scope.login = function(){
+    $scope.login = function(user_type){
       $scope.loading = true;
-      AuthenticationService.Login($scope.user['username'], $scope.user['password'], 
-        function(success_response){
+      AuthenticationService.Login($scope.user['identity'], user_type, $scope.user['password'],
+        function(success_response){          
+          if(success_response['non_field_errors']){
+            for (var msg in success_response['non_field_errors']){
+              $scope.addAlert('danger', success_response['non_field_errors'][msg])
+            }
+          }else{
+            //handle proper page navigation here
+          }
+
           $scope.loading = false;
           var token = success_response.token
-          AuthenticationService.SetCredentials($scope.user['username'], token, function (response){
-            if (response == true){
-              $state.go('app2.instructor.dashboard');
+          // AuthenticationService.SetCredentials($scope.user['username'], token, function (response){
+          //   if (response == true){
+          //     $state.go('app2.instructor.dashboard');
 
-            }
-            else{
-              $state.go('app.student.dashboard');
-            }
-          },
-          function (response){
-            $scope.addAlert('danger', 'Server Error');
-          }
-          );
+          //   }
+          //   else{
+          //     $state.go('app.student.dashboard');
+          //   }
+          // },
+          // function (response){
+          //   $scope.addAlert('danger', 'Server Error');
+          // });
           // $state.go('app.student.dashboard');
         },
         function(error_response){
@@ -99,7 +106,7 @@ app.controller('SigninFormController', ['$scope', '$http', '$state', 'Authentica
             $scope.closeAlert(i)
           };
           if (error_response){
-              $scope.addAlert('danger','Invalid username or password');
+              $scope.addAlert('danger','Something went wrong!');
           }
           else{
             $scope.addAlert('danger', 'Server Error');

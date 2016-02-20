@@ -14,22 +14,27 @@
               <label>Identification Number <em class="text-muted">(Matric No or Staff ID)</em></label>
               <input type="text" class="form-control" ng-model="user.matric_no" ng-pattern="/^[a-zA-Z0-9/]{11,14}$/" required >
           </div>   -->
-          <div class="form-group">
-             <input ype="text" class="form-control" ng-model="user.matric_no" ng-pattern="/^[a-zA-Z0-9/]{11,14}$/" placeholder="Matric No" required >
+          <div class="m-b-md">
+            <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
           </div>
-          <button type="submit" class="btn btn-lg btn-primary btn-block" ng-click="login()" ng-disabled='form.$invalid'>
+          <div class="form-group">
+             <input ype="text" class="form-control" ng-model="user.identity" ng-pattern="/^[a-zA-Z0-9/]{11,14}$/" placeholder="Matric No" required >
+          </div>
+          <button type="submit" class="btn btn-lg btn-primary btn-block" ng-click="login('student')" ng-disabled='form.$invalid'>
             <span class="text" ng-hide="loading">Sign in </span>
             <span class="text" ng-show="loading">Signing in... </span> 
             <i class="fa fa-spin fa-spinner" ng-show="loading"  ng-class="{'fa-spin' : loading}"id="spin"></i>
           </button>       
-        </form>  
-         
+        </form>           
       </tab>    
       <tab>
         <tab-heading>
           <b>Instructor</b>
         </tab-heading>  
-        <form class="form-validation"> 
+        <form class="form-validation">
+          <div class="m-b-md">
+              <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+          </div> 
           <!-- <div class="form-group">
               <label>Identification Number <em class="text-muted">(Matric No or Staff ID)</em></label>
               <input type="text" class="form-control" ng-model="user.matric_no" ng-pattern="/^[a-zA-Z0-9/]{11,14}$/" required >
@@ -39,12 +44,12 @@
               <input type="text" class="form-control" ng-model="user.matric_no" ng-pattern="/^[a-zA-Z0-9/]{11,14}$/" required >
           </div> -->
           <div class="form-group">
-             <input ype="text" class="form-control" ng-model="user.matric_no" ng-pattern="/^[a-zA-Z0-9/]{11,14}$/" placeholder="Staff ID" required >
+             <input ype="text" class="form-control" ng-model="user.identity" ng-pattern="/^[a-zA-Z0-9/]{11,14}$/" placeholder="Staff ID" required >
           </div>  
           <div class="form-group">
              <input type="password" placeholder="Password" class="form-control " ng-model="user.password" required>
           </div>
-          <button type="submit" class="btn btn-lg btn-primary btn-block" ng-click="login()" ng-disabled='form.$invalid'>
+          <button type="submit" class="btn btn-lg btn-primary btn-block" ng-click="login('staff')" ng-disabled='form.$invalid'>
             <span class="text" ng-hide="loading">Sign in </span>
             <span class="text" ng-show="loading">Signing in... </span> 
             <i class="fa fa-spin fa-spinner" ng-show="loading"  ng-class="{'fa-spin' : loading}"id="spin"></i>

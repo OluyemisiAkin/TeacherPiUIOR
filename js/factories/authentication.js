@@ -3,8 +3,8 @@ app.factory('AuthenticationService', ['$http', '$cookieStore', '$rootScope',
 		var factory = {};
         this.role = "student";
         
-        factory.Login = function Login(username, password, success_callback, error_callback){        
-            $http.post(baseUrl+'student/login/', {'username': username, 'password':password})
+        factory.Login = function Login(identity, user_type, password, success_callback, error_callback){
+            $http.post(baseUrl+'user/login/', {'identity': identity, 'user_type':user_type,'password':password})
             	.success(function (response){
             		success_callback(response);
             	})
@@ -22,7 +22,6 @@ app.factory('AuthenticationService', ['$http', '$cookieStore', '$rootScope',
                                      
                 });
         }
-
 
         factory.SetCredentials = function SetCredentials (username, token, success_callback, error_callback) {
         	// $rootScope.globals = {
