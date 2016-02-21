@@ -18,7 +18,7 @@
             <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
           </div>
           <div class="form-group">
-             <input ype="text" class="form-control" ng-model="user.identity" ng-pattern="/^[a-zA-Z0-9/]{11,14}$/" placeholder="Matric No" required >
+             <input type="text" class="form-control" ng-model="user.identity" ng-pattern="/^[a-zA-Z0-9/]{11,14}$/" placeholder="Matric No" required >
           </div>
           <button type="submit" class="btn btn-lg btn-primary btn-block" ng-click="login('student')" ng-disabled='form.$invalid'>
             <span class="text" ng-hide="loading">Sign in </span>

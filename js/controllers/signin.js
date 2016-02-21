@@ -75,12 +75,14 @@ app.controller('SigninFormController', ['$scope', '$http', '$state', 'Authentica
     $scope.login = function(user_type){
       $scope.loading = true;
       AuthenticationService.Login($scope.user['identity'], user_type, $scope.user['password'],
-        function(success_response){          
+        function(success_response){  
+        // console.log(success_response) 
           if(success_response['non_field_errors']){
             for (var msg in success_response['non_field_errors']){
               $scope.addAlert('danger', success_response['non_field_errors'][msg])
             }
           }else{
+            // console.log(success_response)
             //handle proper page navigation here
           }
 
@@ -101,6 +103,7 @@ app.controller('SigninFormController', ['$scope', '$http', '$state', 'Authentica
           // $state.go('app.student.dashboard');
         },
         function(error_response){
+          console.log(error_response)
           $scope.loading = false;
           for (var i = $scope.alerts.length - 1; i >= 0; i--) {
             $scope.closeAlert(i)
