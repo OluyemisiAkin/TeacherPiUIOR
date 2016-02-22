@@ -37,10 +37,12 @@ app.controller('studentAttendance', ['$scope', '$http', '$state', '$cookieStore'
     (function () {
       $http.get(baseUrl+'attendance/activeclass/').then(
         function (success_response){
+
           $scope.httpStatus = true;
           if (success_response.data != 'There is no active course!'){
             $scope.activeClass = true;
             $scope.course = success_response.data[0];
+            console.log($scope.course)
             var course_code =$scope.course.course_code
             time_left(course_code)
           }else {

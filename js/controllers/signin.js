@@ -76,40 +76,24 @@ app.controller('SigninFormController', ['$scope', '$http', '$state', 'Authentica
       $scope.loading = true;
       AuthenticationService.Login($scope.user['identity'], user_type, $scope.user['password'],
         function(success_response){  
-        // console.log(success_response) 
-          if(success_response['non_field_errors']){
-            for (var msg in success_response['non_field_errors']){
-              $scope.addAlert('danger', success_response['non_field_errors'][msg])
-            }
-          }else{
-            // console.log(success_response)
-            //handle proper page navigation here
-          }
-
           $scope.loading = false;
-          var token = success_response.token
-          // AuthenticationService.SetCredentials($scope.user['username'], token, function (response){
-          //   if (response == true){
-          //     $state.go('app2.instructor.dashboard');
-
-          //   }
-          //   else{
-          //     $state.go('app.student.dashboard');
-          //   }
-          // },
-          // function (response){
-          //   $scope.addAlert('danger', 'Server Error');
-          // });
-          // $state.go('app.student.dashboard');
+          var token = success_response.token;
+          AuthenticationService.SetCredentials($scope.user['identity'], user_type, token);
+          
+          if (user_type =='staff'){
+            $state.go('app2.instructor.dashboard');
+          }else{
+            $state.go('app.student.dashboard');
+          }
         },
-        function(error_response){
-          console.log(error_response)
+        function(error_response){   
+          console.log(error_response)       
           $scope.loading = false;
           for (var i = $scope.alerts.length - 1; i >= 0; i--) {
             $scope.closeAlert(i)
           };
-          if (error_response){
-              $scope.addAlert('danger','Something went wrong!');
+          if (error_response['non_field_errors']){
+              $scope.addAlert('danger',error_response['non_field_errors'][0]);
           }
           else{
             $scope.addAlert('danger', 'Server Error');

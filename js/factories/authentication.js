@@ -1,7 +1,7 @@
 app.factory('AuthenticationService', ['$http', '$cookieStore', '$rootScope', 
 	function ($http, $cookieStore, $rootScope){
 		var factory = {};
-        this.role = "student";
+        var role = "student";
         
         factory.Login = function Login(identity, user_type, password, success_callback, error_callback){
             $http.post(baseUrl+'user/login/', {'identity': identity, 'user_type':user_type,'password':password})
@@ -23,7 +23,7 @@ app.factory('AuthenticationService', ['$http', '$cookieStore', '$rootScope',
                 });
         }
 
-        factory.SetCredentials = function SetCredentials (username, token, success_callback, error_callback) {
+        factory.SetCredentials = function SetCredentials (identity, user_type, token) {
         	// $rootScope.globals = {
          //        currentUser: {
          //            username: username,
@@ -32,37 +32,26 @@ app.factory('AuthenticationService', ['$http', '$cookieStore', '$rootScope',
          //    };
          //    $cookieStore.put('globals', $rootScope.globals);
             $http.defaults.headers.common['Authorization'] = 'Token ' + token;
-            $http.get(baseUrl+'student/userDetails/')
-	            .success(function (response){
-	            	var user_data = response
-	            	$rootScope.globals = {
-		                currentUser: {
-		                    username: username,
-		                    token: token,
-		                    id_no: user_data['matric_no'],
-		                    first_name: user_data['first_name'],
-		                    last_name: user_data['last_name'],
-		                    is_staff: user_data['is_staff']
-		                }
-	            	};
-                    $cookieStore.put('globals', $rootScope.globals);
-                    if (user_data['is_staff']){
-                        this.role = 'staff'
-                    }
-                    success_callback(user_data['is_staff']);
-	            })
-                .error(function (response){
-                    error_callback(response);
-                });     
-        }
+            $rootScope.globals = {
+                        currentUser: {
+                            id_no: identity,
+                            token: token,
+                            user_type: user_type
+                        }
+                    };
+            $cookieStore.put('globals', $rootScope.globals);
+                if (user_type == 'staff'){
+                    role = 'staff'
+                }                          
+        };
 
         factory.ClearCredentials = function ClearCredentials () {
         	$rootScope.globals = {};
             $cookieStore.remove('globals');
             $http.defaults.headers.common.Authorization = 'Basic';
-        }
+        };
         factory.GetPermissions = function GetPermissions (){
-            return this.role;
+            return role;
         }
 
         return factory;
