@@ -12,12 +12,9 @@
           </span>
         </a>
         <div ng-controller="UserData">
-          <span class="clear">
-            <span class="block m-t-sm">
-              <strong class="font-bold text-lt">{{user_data.first_name}} {{user_data.last_name}}</strong> 
-            </span>
+          <span class="clear">            
             <span class="text-muted text-xs block">Student</span>
-            <span class="text-muted text-xs block">{{user_data.id_no}}</span>
+            <span class="text-muted text-xs block">{{user_data.id_no | uppercase}}</span>
           </span>
         </div>
         
