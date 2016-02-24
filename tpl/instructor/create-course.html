@@ -2,11 +2,15 @@
   <h1 class="m-n font-thin h3">Create New Course</h1>
 </div>
 <div class="wrapper-md" ng-controller="Course"> 
-<tabset class="tab-container">
-    <tab>
-      <tab-heading>
-        Course 
-      </tab-heading>  
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <span class="h4">Course</span>
+    </div>
+<!-- <tabset class="tab-container"> -->
+    <!-- <tab> -->
+      <!-- <tab-heading> -->
+        <!-- Course 
+      </tab-heading>   -->
       <form class="form-validation">
          <div class="m-b-md">
                 <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
@@ -33,53 +37,26 @@
             </div>
             <div class="form-group">
               <label>Description</label>
-              <textarea class="form-control" rows="6" placeholder="Other information about the course" ng-model="course.course_info"></textarea>
-            </div>         
-          <div class="form-group">
-            <!-- <div class="col-sm-4 col-sm-offset-4">
-              <button type="submit" class="btn btn-default">Cancel</button>
-              <button type="submit" class="btn btn-primary">Create</button>
-            </div> -->
-            <button type="submit" class="btn btn-success pull-right" ng-click="createCourse()" >
-              <span class="text" ng-hide="loading">Save</span>
-              <span class="text" ng-show="loading">Saving...</span> 
-              <i class="fa fa-spin fa-spinner" ng-show="loading"  ng-class="{'fa-spin' : loading}"id="spin"></i></button>
-          </div>
-          </div>
-      </form>     
-    </tab>
-    <tab >
-      <tab-heading>
-        Student Data 
-      </tab-heading>  
-      <form class="form-validation">
-         <div class="m-b-md">
-                <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
-          </div>
-          <div class="panel-body">                       
-              <div class="form-group">
-                <label>Code <em>(E.g EEE101)</em></label>
-                <input type="text" class="form-control" ng-model="course.course_code" ng-pattern="/^[a-zA-Z0-9/]{6}$/" disabled="true" required >               
-              </div> 
-              <p class="text-muted"><b>Type in matric numbers (available seperators: ,;:space,newline)</b></p><div class="form-group">
-                  <label>Registered Matric Numbers</label>
-                  <textarea class="form-control" rows="6" placeholder="e.g: EEG/2009/101, EEG/2010/001" ng-model="course.numbers" required></textarea>
-                </div>      
-              <div class="form-group">
+              <textarea class="form-control" rows="3" placeholder="Other information about the course." ng-model="course.course_info"></textarea>
+            </div>  
+             <div class="form-group">
               <!-- <div class="col-sm-4 col-sm-offset-4">
                 <button type="submit" class="btn btn-default">Cancel</button>
                 <button type="submit" class="btn btn-primary">Create</button>
               </div> -->
-              Choose File <input type="file" onchange="angular.element(this).scope().fileUpload(this)">
+              Upload student data 
+              <input type="file" onchange="angular.element(this).scope().fileUpload(this)">
               <br />
-              <button type="submit" class="btn btn-success pull-right" ng-click="studentData()" >
+              <button type="submit" class="btn btn-success pull-left" ng-click="studentData()" >
               <span class="text" ng-hide="loading">Save</span>
               <span class="text" ng-show="loading">Saving...</span> 
               <i class="fa fa-spin fa-spinner" ng-show="loading"  ng-class="{'fa-spin' : loading}"id="spin"></i></button>
-              </div>
-            </div>
+              </div>       
+          
+          </div>
       </form>     
-    </tab>   
-  </tabset>
+    <!-- </tab>      
+  </tabset> -->
+  </div>
 
 </div>
