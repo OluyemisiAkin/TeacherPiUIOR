@@ -38,8 +38,12 @@
             <div class="form-group">
               <label>Description</label>
               <textarea class="form-control" rows="3" placeholder="Other information about the course." ng-model="course.course_info"></textarea>
+            </div> 
+            <div class="form-group">
+              <label>Registered Matric Numbers</label>
+              <textarea class="form-control" rows="6" placeholder="e.g: EEG/2009/101, EEG/2010/001 or upload a file" ng-model="course.numbers" required></textarea>
             </div>  
-             <div class="form-group">
+            <div class="form-group">
               <!-- <div class="col-sm-4 col-sm-offset-4">
                 <button type="submit" class="btn btn-default">Cancel</button>
                 <button type="submit" class="btn btn-primary">Create</button>
@@ -51,7 +55,7 @@
               <span class="text" ng-hide="loading">Save</span>
               <span class="text" ng-show="loading">Saving...</span> 
               <i class="fa fa-spin fa-spinner" ng-show="loading"  ng-class="{'fa-spin' : loading}"id="spin"></i></button>
-              </div>       
+            </div>       
           
           </div>
       </form>     

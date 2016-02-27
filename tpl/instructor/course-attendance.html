@@ -26,19 +26,16 @@
     </div>
     <div class="row wrapper">
       <div class="col-sm-5 m-b-xs">
-        <!-- <select class="input-sm form-control w-sm inline v-middle">
-          <option value="0">Export</option>
-          <option value="1">Delete selected</option>
-          <option value="2">Bulk edit</option>
-        </select> -->
-        <!-- <button class="btn btn-sm btn-default">Apply</button>                 -->
-        <button class="btn btn-sm btn-default" ng-csv="exportData" csv-header="getHeader()" filename="attendance.csv">Export Data</button>                        
-      </div>
+        <button class="btn btn-sm btn-success" ng-csv="exportData" csv-header="getHeader()" filename="attendance.csv">Export Data</button> 
+        <form name="form" class="form-validation inline v-middle">
+        <input type="text" class="input-sm form-control" ng-model="new_student" ng-pattern="/^[a-zA-Z0-9/]{12,14}$/" placeholder="Matric No" required >       
+       </form>
+      <button class="btn btn-sm btn-default" ng-disabled='form.$invalid' ng-click="updateAttendance(new_student, selected_course.course_code)">Add new Student</button>        </div>
       <div class="col-sm-4">
       </div>
       <div class="col-sm-3">
         <div class="input-group">
-          <input type="text" class="input-sm form-control" placeholder="Search">
+          <input type="text" class="input-sm form-control" placeholder="Filter by Matric Number" ng-model="search">
           <span class="input-group-btn">
             <button class="btn btn-sm btn-default" type="button">Go!</button>
           </span>
@@ -61,11 +58,11 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="student in students">
+          <tr ng-repeat="student in students | filter:search">
             <!-- <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td> -->
             <td>{{student.matric_no}}</td>
-            <td>{{student.date}}</td>
-            <td>{{student.time}}</td>  
+            <td>{{student.timestamp *1000 | date:'mediumDate'}}</td>
+            <td>{{student.timestamp *1000 | date:'mediumTime'}}</td>  
           </tr>        
         </tbody>
       </table>

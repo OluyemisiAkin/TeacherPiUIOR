@@ -1,11 +1,12 @@
 'use strict';
-app.controller('Attendance', ['$scope', '$http', '$state', '$cookieStore',function($scope, $http, $state, $cookieStore) {
+app.controller('Attendance', ['$scope', '$http', '$state', '$cookieStore','$filter',function($scope, $http, $state, $cookieStore, $filter) {
     $scope.alerts = [];
     $scope.courses = {};
     $scope.httpStatus1 = false;
     $scope.httpStatus2 = true;
     $scope.found = false;
     $scope.found2 = false;    
+    $scope.new_student="";
 
     $scope.addAlert = function(type,message) {
       $scope.alerts.push({type: type, msg: message});
@@ -45,16 +46,18 @@ app.controller('Attendance', ['$scope', '$http', '$state', '$cookieStore',functi
       if (code != undefined){
          $http.get(baseUrl+'attendance/attendance_list/'+code+'/')
           .success(function (response) {
-            // console.log(response)
+            console.log(response)
             for (var i = $scope.alerts.length - 1; i >= 0; i--) {
               $scope.closeAlert(i);
             };
             $scope.students= response;
             $scope.exportData = [];
+
+            var newd = $filter('date')($scope.students[0]['timestamp'], 'mediumTime')
             for (var student in $scope.students) {
               $scope.exportData.push({matric_no: $scope.students[student]['matric_no'], 
-                                              date: $scope.students[student]['date'],
-                                              time: $scope.students[student]['time']})
+                                              date: $filter('date')($scope.students[student]['timestamp'] *1000, 'mediumDate'),
+                                              time: $filter('date')($scope.students[student]['timestamp'] *1000, 'mediumTime')})
             }
             $scope.count = $scope.students.length
             $scope.httpStatus2 = true;
@@ -74,7 +77,15 @@ app.controller('Attendance', ['$scope', '$http', '$state', '$cookieStore',functi
           });
       }    
     }
-    $scope.getHeader = function () {return ['matric_no', 'date', 'time']};
+    $scope.getHeader = function () {return ['Matric Number', 'Date', 'Time']};
+
+    $scope.updateAttendance = function(matric_no, code){
+      //call api as staff and pass new student data and course code
+      console.log(code)
+      //recall load list
+      $scope.loadList(code)
+
+    }
     
 
 
