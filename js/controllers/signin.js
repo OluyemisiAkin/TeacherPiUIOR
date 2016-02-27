@@ -53,6 +53,11 @@ app.controller('Signin', ['$scope', '$http', '$state', 'AuthenticationService','
           else if (error_response['identity']){
               $scope.addAlert('danger',error_response['identity'][0]);
           }
+          else if (error_response){
+              for (var msg in error_response){
+                $scope.addAlert('danger',error_response[msg]);     
+              }
+          }
           else{
             $scope.addAlert('danger', 'Server Error');
           }
