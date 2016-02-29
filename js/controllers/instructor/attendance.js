@@ -79,14 +79,7 @@ app.controller('Attendance', ['$scope', '$http', '$state', '$cookieStore','$filt
     }
     $scope.getHeader = function () {return ['Matric Number', 'Date', 'Time']};
 
-    $scope.updateAttendance = function(matric_no, code){
-      //call api as staff and pass new student data and course code
-      console.log(code)
-      //recall load list
-      $scope.loadList(code)
-
-    }
-    
+     
 
 
 }]);

@@ -2,13 +2,14 @@
 
 /* Controllers */
   // signin controller
-app.controller('Course', ['$scope', '$http', '$state', '$cookieStore','$stateParams','$location','$q','FileInputService',
-  function($scope, $http, $state, $cookieStore, $stateParams, $location, $q, FileInputService) {
+app.controller('Course', ['$scope', '$http', '$state', '$cookieStore','$stateParams','$location','$q','FileInputService','$filter',
+  function($scope, $http, $state, $cookieStore, $stateParams, $location, $q, FileInputService, $filter) {
     $scope.alerts = [];
     $scope.course = {};    
     var update = false;
     $scope.numbers="";
-    $scope.started = false;
+    // $scope.started = false;
+    //loading was used for the buttons and httpStatus used for main image of full dat load
 
 
     $scope.addAlert = function(type,message) {
@@ -115,7 +116,6 @@ app.controller('Course', ['$scope', '$http', '$state', '$cookieStore','$statePar
 
     $scope.fileInputContent = "";
     $scope.fileUpload = function (element) {
-      console.log('here')
         $scope.$apply(function (scope) {
             var file = element.files[0];
             FileInputService.readFileAsync(file).then(function (fileInputContent) {
@@ -148,7 +148,8 @@ app.controller('Course', ['$scope', '$http', '$state', '$cookieStore','$statePar
           for (var c in $scope.courses){
             if ($scope.courses[c].course_code == active_classes[clas].course_code){
               $scope.courses[c].started = true;
-          };
+            }       
+
             };
         };
       })
@@ -221,9 +222,14 @@ app.controller('Course', ['$scope', '$http', '$state', '$cookieStore','$statePar
             $scope.closeAlert(i);
         };
         $scope.addAlert('success','Class succesfully started')
-        // $scope.course = {};
-        $scope.loading = false;
-        $scope.started = true;        
+        $scope.course = {};
+        for (var c in $scope.courses){
+          if($scope.courses[c].course_code == code){
+            $scope.courses[c].started = true;
+          }
+        }
+        $scope.loading = false;       
+              
       })
       .error(function (data,status,header){
         for (var i = $scope.alerts.length - 1; i >= 0; i--) {
@@ -233,6 +239,69 @@ app.controller('Course', ['$scope', '$http', '$state', '$cookieStore','$statePar
         $scope.addAlert('danger','Error starting class, please try again')
       });
    };
+
+   $scope.stopClass = function(code){
+      for (var i = $scope.alerts.length - 1; i >= 0; i--) {
+              $scope.closeAlert(i);
+          };
+     $http.get(baseUrl+'attendance/stop_class/')
+      .success(function (response) {
+          // $scope.downloadList(code)          //download attendance list
+          $scope.addAlert('success', 'Class succesfully stopped');
+             for (var c in $scope.courses){
+                if($scope.courses[c].course_code == code){
+                  $scope.courses[c].started = false;
+                }
+              }  
+          $scope.loading = false;     
+      })
+      .error(function (data, status, headers){
+        $scope.addAlert('danger', 'Error stopping class');
+        $scope.loading = false;
+      });
+
+
+   };
+
+
+   /**** Download attendance list *** just copied and pasted from attendance.js, can make dis better 
+   ***** by making the export a service***/
+
+   $scope.downloadList = function(code){      
+      if (code != undefined){
+         $http.get(baseUrl+'attendance/attendance_list/'+code+'/')
+          .success(function (response) {
+            for (var i = $scope.alerts.length - 1; i >= 0; i--) {
+              $scope.closeAlert(i);
+            };
+            $scope.students= response;
+            $scope.exportData = [];
+
+            var newd = $filter('date')($scope.students[0]['timestamp'], 'mediumTime')
+            for (var student in $scope.students) {
+              $scope.exportData.push({matric_no: $scope.students[student]['matric_no'], 
+                                              date: $filter('date')($scope.students[student]['timestamp'] *1000, 'mediumDate'),
+                                              time: $filter('date')($scope.students[student]['timestamp'] *1000, 'mediumTime')})
+            }
+            $scope.count = $scope.students.length
+            $scope.httpStatus2 = true;
+            if ($scope.students.length == 0){
+              $scope.addAlert('warning','No student data found for this class!');
+              $scope.found2 = false;
+              return;
+            }
+            $scope.found2 = true;
+          })
+          .error(function (data, status, headers){
+            for (var i = $scope.alerts.length - 1; i >= 0; i--) {
+              $scope.closeAlert(i);
+            };
+            $scope.addAlert('danger', 'Error fetchin attendance list');
+            $scope.httpStatus1 = true;
+          });
+      }    
+    }
+    $scope.getHeader = function () {return ['Matric Number', 'Date', 'Time']};
 
 
    

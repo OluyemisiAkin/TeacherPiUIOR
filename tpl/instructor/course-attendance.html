@@ -26,11 +26,8 @@
     </div>
     <div class="row wrapper">
       <div class="col-sm-5 m-b-xs">
-        <button class="btn btn-sm btn-success" ng-csv="exportData" csv-header="getHeader()" filename="attendance.csv">Export Data</button> 
-        <form name="form" class="form-validation inline v-middle">
-        <input type="text" class="input-sm form-control" ng-model="new_student" ng-pattern="/^[a-zA-Z0-9/]{12,14}$/" placeholder="Matric No" required >       
-       </form>
-      <button class="btn btn-sm btn-default" ng-disabled='form.$invalid' ng-click="updateAttendance(new_student, selected_course.course_code)">Add new Student</button>        </div>
+        <button class="btn btn-sm btn-success" ng-csv="exportData" csv-header="getHeader()" filename="attendance.csv">Export Data</button>                
+      </div>
       <div class="col-sm-4">
       </div>
       <div class="col-sm-3">
