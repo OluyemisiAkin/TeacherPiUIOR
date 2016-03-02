@@ -51,7 +51,7 @@
               Upload student data 
               <input type="file" onchange="angular.element(this).scope().fileUpload(this)">
               <br />
-              <button type="submit" class="btn btn-success pull-left" ng-click="studentData()" >
+              <button type="submit" class="btn btn-success pull-left" ng-click="createCourse()" >
               <span class="text" ng-hide="loading">Save</span>
               <span class="text" ng-show="loading">Saving...</span> 
               <i class="fa fa-spin fa-spinner" ng-show="loading"  ng-class="{'fa-spin' : loading}"id="spin"></i></button>

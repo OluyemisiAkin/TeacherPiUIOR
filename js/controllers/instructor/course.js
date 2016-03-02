@@ -63,8 +63,8 @@ app.controller('Course', ['$scope', '$http', '$state', '$cookieStore','$statePar
         })
         .success(function (response){
           $scope.addAlert('success','Course succesfully Updated')
-          $scope.course = {}
           $scope.loading = false;
+          $scope.studentData();
         })
         .error(function (data,status,header){
           $scope.addAlert('danger','Server error')
@@ -87,8 +87,8 @@ app.controller('Course', ['$scope', '$http', '$state', '$cookieStore','$statePar
       })
       .success(function (response){
         $scope.addAlert('success','Course succesfully registered')
-        $scope.course = {};
         $scope.loading = false;
+        $scope.studentData();
       })
       .error(function (data,status,header){
         $scope.loading = false;        
