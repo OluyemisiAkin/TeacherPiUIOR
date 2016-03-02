@@ -42,7 +42,7 @@ app.controller('Signin', ['$scope', '$http', '$state', 'AuthenticationService','
           }
         },
         function(error_response){   
-          console.log(error_response)       
+          // console.log(error_response)       
           $scope.loading = false;
           for (var i = $scope.alerts.length - 1; i >= 0; i--) {
             $scope.closeAlert(i)

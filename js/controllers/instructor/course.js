@@ -8,6 +8,7 @@ app.controller('Course', ['$scope', '$http', '$state', '$cookieStore','$statePar
     $scope.course = {};    
     var update = false;
     $scope.numbers="";
+    var matric_nos
     // $scope.started = false;
     //loading was used for the buttons and httpStatus used for main image of full dat load
 
@@ -64,7 +65,8 @@ app.controller('Course', ['$scope', '$http', '$state', '$cookieStore','$statePar
         .success(function (response){
           $scope.addAlert('success','Course succesfully Updated')
           $scope.loading = false;
-          $scope.studentData();
+          console.log('matri: '+matric_nos)
+          $scope.studentData(matric_nos);
         })
         .error(function (data,status,header){
           $scope.addAlert('danger','Server error')
@@ -88,7 +90,8 @@ app.controller('Course', ['$scope', '$http', '$state', '$cookieStore','$statePar
       .success(function (response){
         $scope.addAlert('success','Course succesfully registered')
         $scope.loading = false;
-        $scope.studentData();
+        console.log('matri: '+matric_nos)
+        $scope.studentData(matric_nos);
       })
       .error(function (data,status,header){
         $scope.loading = false;        
@@ -97,9 +100,15 @@ app.controller('Course', ['$scope', '$http', '$state', '$cookieStore','$statePar
       }
     };
 
-    $scope.studentData = function(){
-      $scope.matric_nos = $scope.course.numbers
-      var nos = $scope.matric_nos.split(/[\s,:;\n\r]+/);
+    $scope.studentData = function(nums){
+      var nos = nums
+      if(nums == undefined){
+        nos= $scope.course.numbers
+        if (typeof nos == 'string'){
+          nos = nos.split(/[\s,:;\n\r]+/);        
+        }     
+      }
+      
 
       $http.post(baseUrl+'course/can_take_course/',{course_code: $scope.course.course_code, can_take_course: nos})
       .success(function (response){
@@ -120,12 +129,16 @@ app.controller('Course', ['$scope', '$http', '$state', '$cookieStore','$statePar
             var file = element.files[0];
             FileInputService.readFileAsync(file).then(function (fileInputContent) {
                 $scope.fileInputContent = fileInputContent;
-                console.log($scope.fileInputContent)
-
+                var numbers = $scope.fileInputContent.split(/[\n]+/);
+                numbers = numbers.slice(1, numbers.length-1);
+                matric_nos = [];
+                for (var num in numbers){
+                  var n = numbers[num].split(/[,]+/)[1];
+                  matric_nos.push(n);                  
+                }
             });
         });
     };
-
 
 
     //*************course list************//
@@ -134,7 +147,6 @@ app.controller('Course', ['$scope', '$http', '$state', '$cookieStore','$statePar
       .success(function (response) {
         $scope.courses= response;
         $scope.httpStatus = true;
-
       })
       .error(function (data, status, headers){
         $scope.addAlert('danger', 'Error loading course list');
@@ -149,8 +161,7 @@ app.controller('Course', ['$scope', '$http', '$state', '$cookieStore','$statePar
             if ($scope.courses[c].course_code == active_classes[clas].course_code){
               $scope.courses[c].started = true;
             }       
-
-            };
+          };
         };
       })
       .error(function (data, status, headers){
@@ -259,8 +270,6 @@ app.controller('Course', ['$scope', '$http', '$state', '$cookieStore','$statePar
         $scope.addAlert('danger', 'Error stopping class');
         $scope.loading = false;
       });
-
-
    };
 
 
@@ -302,8 +311,6 @@ app.controller('Course', ['$scope', '$http', '$state', '$cookieStore','$statePar
       }    
     }
     $scope.getHeader = function () {return ['Matric Number', 'Date', 'Time']};
-
-
    
 
-  }]);
+}]);

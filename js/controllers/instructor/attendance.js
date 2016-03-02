@@ -46,11 +46,16 @@ app.controller('Attendance', ['$scope', '$http', '$state', '$cookieStore','$filt
       if (code != undefined){
          $http.get(baseUrl+'attendance/attendance_list/'+code+'/')
           .success(function (response) {
-            console.log(response)
             for (var i = $scope.alerts.length - 1; i >= 0; i--) {
               $scope.closeAlert(i);
             };
             $scope.students= response;
+             if ($scope.students.length == 0){
+              $scope.addAlert('warning','No student data found for this class!');
+              $scope.found2 = false;
+              $scope.httpStatus2 = true;  
+              return;
+            }
             $scope.exportData = [];
 
             var newd = $filter('date')($scope.students[0]['timestamp'], 'mediumTime')
@@ -60,12 +65,7 @@ app.controller('Attendance', ['$scope', '$http', '$state', '$cookieStore','$filt
                                               time: $filter('date')($scope.students[student]['timestamp'] *1000, 'mediumTime')})
             }
             $scope.count = $scope.students.length
-            $scope.httpStatus2 = true;
-            if ($scope.students.length == 0){
-              $scope.addAlert('warning','No student data found for this class!');
-              $scope.found2 = false;
-              return;
-            }
+            $scope.httpStatus2 = true;           
             $scope.found2 = true;
           })
           .error(function (data, status, headers){
