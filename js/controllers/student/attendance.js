@@ -2,7 +2,7 @@
 
 /* Controllers */
   // signin controller
-app.controller('studentAttendance', ['$scope', '$http', '$state', '$cookieStore','$timeout', function($scope, $http, $state, $cookieStore,$timeout) {
+app.controller('studentAttendance', ['$scope', '$http', '$state', '$cookieStore','otherServices', function($scope, $http, $state, $cookieStore,otherServices) {
     $scope.user_data = {}
     $scope.activeClass = false;
     $scope.httpStatus = false;
@@ -37,54 +37,77 @@ app.controller('studentAttendance', ['$scope', '$http', '$state', '$cookieStore'
     (function () {
       $http.get(baseUrl+'attendance/activeclass/').then(
         function (success_response){
-
           $scope.httpStatus = true;
           if (success_response.data != 'There is no active course!'){
             $scope.activeClass = true;
             $scope.course = success_response.data[0];
-            console.log(success_response)
             var course_code =$scope.course.course_code
             time_left(course_code)
           }else {
             $scope.addAlert('warning', 'No currently active classes');
           }
         },
-        function (error_response){
-          $scope.httpStatus = true;
-          $scope.addAlert('danger', 'Server Error');
+        function (data, status, headers){
+         if (status == 401){
+          $state.go('access.signin',{logout:true, msg:'Session timed out or class already ended!'});
+          }
+          else{
+            $scope.httpStatus = true;
+            $scope.addAlert('danger', 'Server Error');
+          }
         });
 
     })();
 
-    function time_left (course_code){
-      $http.get(baseUrl+'course/time_left/'+course_code+'/')
-      .success( function (response){
-        var duration = response;
-        var CountDown = function(){
-          duration--;
-          $scope.hr = 0;
-          $scope.secs = duration % 60;
-          $scope.min = Math.floor(duration/60);
-          if ($scope.min >=60){
-            $scope.hr = Math.floor($scope.min/60);
-            $scope.min = $scope.min%60;
+    // function time_left (course_code){
+    //   $http.get(baseUrl+'course/time_left/'+course_code+'/')
+    //   .success( function (response){
+    //     var duration = response;
+    //     var CountDown = function(){
+    //       duration--;
+    //       $scope.hr = 0;
+    //       $scope.secs = duration % 60;
+    //       $scope.min = Math.floor(duration/60);
+    //       if ($scope.min >=60){
+    //         $scope.hr = Math.floor($scope.min/60);
+    //         $scope.min = $scope.min%60;
+    //       }
+    //       if (duration == 0){
+    //         $timeout.cancel(myCountDown);            
+    //       }else{
+    //         myCountDown = $timeout(CountDown, 1000)
+    //       }
+    //     }               
+    //     var myCountDown = $timeout(CountDown, 1000)
+
+    //   })
+    //   .error(function (response){
+    //     $scope.addAlert('danger','Error fetching time left to end class!');       
+    //   });
+
+    // }
+    function time_left(course_code){
+      otherServices.timeLeft(course_code,
+        function(success_response){
+          $scope.hr = success_response[0];
+          $scope.min = success_response[1];
+          $scope.secs = success_response[2];
+          if ($scope.min <10){
+            $scope.min = '0'+$scope.min;
           }
-          if (duration == 0){
-            $timeout.cancel(myCountDown);            
-          }else{
-            myCountDown = $timeout(CountDown, 1000)
+          if ($scope.secs <10){
+            $scope.secs = '0'+$scope.secs;
           }
-        }       
-        
-        var myCountDown = $timeout(CountDown, 1000)
-
-      })
-      .error(function (response){
-        $scope.addAlert('danger','Error fetching time left to end class!')
-        
-
-      });
-
+        },
+        function(data, status, headers){
+        if (status == 401){
+         $state.go('access.signin',{logout:true, msg:'Session timed out or class already ended!'});
+        }
+        else{
+          $scope.addAlert('danger','Error fetching time left to end class!'); 
+        }
+        }
+        )
     }
 
 
@@ -123,6 +146,9 @@ app.controller('studentAttendance', ['$scope', '$http', '$state', '$cookieStore'
         for (var i = $scope.alerts.length - 1; i >= 0; i--) {
             $scope.closeAlert(i);
           };
+        if (status == 401){
+         $state.go('access.signin',{logout:true, msg:'Session timed out or class already ended!'});
+        }
         if (data.detail){
           $scope.addAlert('danger',data.detail)
           $scope.loading = false;        
@@ -130,7 +156,6 @@ app.controller('studentAttendance', ['$scope', '$http', '$state', '$cookieStore'
         else{
           $scope.addAlert('danger','Error marking attendance!')
           $scope.loading = false;  
-          console.log(data)      
 
         }
       });

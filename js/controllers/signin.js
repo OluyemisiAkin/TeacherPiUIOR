@@ -4,8 +4,8 @@
 
 /* Controllers */
   // signin controller
-app.controller('Signin', ['$scope', '$http', '$state', 'AuthenticationService','$stateParams',
- function ($scope, $http, $state, AuthenticationService, $stateParams) {
+app.controller('Signin', ['$scope', '$http', '$state', 'AuthenticationService','$stateParams','otherServices',
+ function ($scope, $http, $state, AuthenticationService, $stateParams,otherServices) {
     $scope.user = {};
     $scope.authError = null;
 
@@ -21,6 +21,9 @@ app.controller('Signin', ['$scope', '$http', '$state', 'AuthenticationService','
     if($stateParams.logout){
       AuthenticationService.Logout();
     }
+    if($stateParams.msg){
+      $scope.addAlert('warning', $stateParams.msg);
+    }
 
     (function initController () {
       AuthenticationService.ClearCredentials();
@@ -33,11 +36,11 @@ app.controller('Signin', ['$scope', '$http', '$state', 'AuthenticationService','
         function(success_response){  
           $scope.loading = false;
           var token = success_response.token;
-          AuthenticationService.SetCredentials($scope.user['identity'], user_type, token);
+          AuthenticationService.SetCredentials($scope.user['identity'], user_type, token);          
           
           if (user_type =='staff'){
             $state.go('app2.instructor.dashboard');
-          }else{
+          }else{          
             $state.go('app.student.dashboard');
           }
         },

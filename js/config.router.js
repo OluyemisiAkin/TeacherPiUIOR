@@ -28,7 +28,8 @@ angular.module('app')
                   url: '/signin',
                   templateUrl: 'tpl/signin.html',
                   params:{
-                    logout:null
+                    logout:null,
+                    msg:null                    
                   },
                   resolve: {
                       deps: ['uiLoad',

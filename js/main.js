@@ -1,31 +1,13 @@
 'use strict';
 /* Controllers */
 angular.module('app')
-  .controller('AppCtrl', ['$scope', '$translate', '$localStorage', '$window','$cookieStore','$timeout','$state',
-    function(              $scope,   $translate,   $localStorage,   $window, $cookieStore, $timeout,$state) {
+  .controller('AppCtrl', ['$scope', '$translate', '$localStorage', '$window','$cookieStore','otherServices','$http',
+    function(              $scope,   $translate,   $localStorage,   $window, $cookieStore,otherServices,$http) {
       // add 'ie' classes to html
       var isIE = !!navigator.userAgent.match(/MSIE/i);
       isIE && angular.element($window.document.body).addClass('ie');
       isSmartDevice( $window ) && angular.element($window.document.body).addClass('smart');
-      // if ($cookieStore.get('globals') != undefined){
-      // $scope.user_data = $cookieStore.get('globals').currentUser;
-      //   var data = function (){
-      //     $scope.user_data = $cookieStore.get('globals').currentUser;
-      //   }
-      //   $timeout(data,2000)
-      // }
-
-      // if ($cookieStore.get('globals') != undefined){
-      // var user_data = $cookieStore.get('globals').currentUser;
-      // console.log(user_data)
-      //   if (user_data['is_staff']){
-      //     $state.go('app2.instructor.dashboard');
-      //   }else{
-      //     $state.go('app.student.dashboard');
-      //   }        
-      // }      
-
-      // config          
+               
       $scope.app = {
         name: 'Teacher Pi',
         version: '1.0.0',
@@ -86,6 +68,9 @@ angular.module('app')
           var ua = $window['navigator']['userAgent'] || $window['navigator']['vendor'] || $window['opera'];
           // Checks for iOs, Android, Blackberry, Opera Mini, and Windows mobile devices
           return (/iPhone|iPod|iPad|Silk|Android|BlackBerry|Opera Mini|IEMobile/).test(ua);
-      }    
+      } 
+
+       
+        
 
   }]);

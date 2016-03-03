@@ -65,12 +65,16 @@ app.controller('Course', ['$scope', '$http', '$state', '$cookieStore','$statePar
         .success(function (response){
           $scope.addAlert('success','Course succesfully Updated')
           $scope.loading = false;
-          console.log('matri: '+matric_nos)
           $scope.studentData(matric_nos);
         })
         .error(function (data,status,header){
-          $scope.addAlert('danger','Server error')
-          $scope.loading = false;          
+          if (status == 401){
+            $state.go('access.signin',{logout:true, msg:'Session timed out!'});
+          }
+          else{
+            $scope.addAlert('danger','Server error')
+            $scope.loading = false;          
+          }
         });
 
       }
@@ -90,12 +94,16 @@ app.controller('Course', ['$scope', '$http', '$state', '$cookieStore','$statePar
       .success(function (response){
         $scope.addAlert('success','Course succesfully registered')
         $scope.loading = false;
-        console.log('matri: '+matric_nos)
         $scope.studentData(matric_nos);
       })
       .error(function (data,status,header){
-        $scope.loading = false;        
-        $scope.addAlert('danger','Server error')
+        if (status == 401){
+         $state.go('access.signin',{logout:true, msg:'Session timed out!'});
+        }
+        else{          
+          $scope.loading = false;        
+          $scope.addAlert('danger','Server error');
+        }
       });
       }
     };
@@ -117,8 +125,13 @@ app.controller('Course', ['$scope', '$http', '$state', '$cookieStore','$statePar
         $scope.loading = false;
       })
       .error(function (data,status,header){
-        $scope.loading = false;        
-        $scope.addAlert('danger','Server error')
+        if (status == 401){
+         $state.go('access.signin',{logout:true, msg:'Session timed out!'});
+        }
+        else{
+          $scope.loading = false;        
+          $scope.addAlert('danger','Server error');
+        }
       });
           
    }
@@ -149,8 +162,13 @@ app.controller('Course', ['$scope', '$http', '$state', '$cookieStore','$statePar
         $scope.httpStatus = true;
       })
       .error(function (data, status, headers){
-        $scope.addAlert('danger', 'Error loading course list');
-        $scope.httpStatus = true;
+        if (status == 401){
+         $state.go('access.signin',{logout:true, msg:'Session timed out!'});
+        }
+        else{
+          $scope.addAlert('danger', 'Error loading course list');
+          $scope.httpStatus = true;
+        }
       });
 
       $http.get(baseUrl+'attendance/activeclass/')
@@ -165,8 +183,15 @@ app.controller('Course', ['$scope', '$http', '$state', '$cookieStore','$statePar
         };
       })
       .error(function (data, status, headers){
-        $scope.addAlert('danger', 'Error loading active classes');
-        $scope.httpStatus = true;
+        if (status == 401){
+         $state.go('access.signin',{logout:true, msg:'Session timed out!'});
+        }
+        else{
+          $scope.addAlert('danger', 'Error loading active classes');
+          $scope.httpStatus = true;
+
+        }
+        
       });
    };
    //load active clases
@@ -199,8 +224,13 @@ app.controller('Course', ['$scope', '$http', '$state', '$cookieStore','$statePar
             $state.go($state.current, {msg:msg}, {reload: true, inherit: true, notify: true});
           })
           .error(function (data,status,header){
+          if (status == 401){
+            $state.go('access.signin',{logout:true, msg:'Session timed out!'});
+          }
+          else{
             $scope.addAlert('danger','Error deleting course')
             $scope.loading = false;          
+          }
           });
    }
 
@@ -246,8 +276,13 @@ app.controller('Course', ['$scope', '$http', '$state', '$cookieStore','$statePar
         for (var i = $scope.alerts.length - 1; i >= 0; i--) {
             $scope.closeAlert(i);
           };
-        $scope.loading = false;        
-        $scope.addAlert('danger','Error starting class, please try again')
+        if (status == 401){
+         $state.go('access.signin',{logout:true, msg:'Session timed out!'});
+        }
+        else{
+          $scope.loading = false;                
+          $scope.addAlert('danger','Error starting class, please try again');
+        }
       });
    };
 
@@ -264,11 +299,17 @@ app.controller('Course', ['$scope', '$http', '$state', '$cookieStore','$statePar
                   $scope.courses[c].started = false;
                 }
               }  
-          $scope.loading = false;     
+          $scope.loading = false; 
+          // $state.go('access.signin',{logout:true});    
       })
       .error(function (data, status, headers){
-        $scope.addAlert('danger', 'Error stopping class');
-        $scope.loading = false;
+        if (status == 401){
+         $state.go('access.signin',{logout:true, msg:'Session timed out!'});
+        }
+        else{
+          $scope.addAlert('danger', 'Error stopping class');
+          $scope.loading = false;
+        }
       });
    };
 
@@ -305,8 +346,13 @@ app.controller('Course', ['$scope', '$http', '$state', '$cookieStore','$statePar
             for (var i = $scope.alerts.length - 1; i >= 0; i--) {
               $scope.closeAlert(i);
             };
-            $scope.addAlert('danger', 'Error fetchin attendance list');
-            $scope.httpStatus1 = true;
+            if (status == 401){
+              $state.go('access.signin',{logout:true, msg:'Session timed out!'});
+            }
+            else{
+              $scope.addAlert('danger', 'Error fetching attendance list');
+              $scope.httpStatus1 = true;
+            }
           });
       }    
     }

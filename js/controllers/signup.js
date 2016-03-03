@@ -27,7 +27,6 @@ app.controller('SignupFormController', ['$scope', '$http', '$state', function($s
           };
           if (error_response.status == 500){
             $scope.loading = false;                  
-            console.log(error_response.data)
             $scope.addAlert('danger','Server Error');
           }else if (error_response.status == 400) {
             $scope.loading = false;                  

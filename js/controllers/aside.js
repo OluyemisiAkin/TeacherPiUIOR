@@ -15,7 +15,7 @@ app.controller('UserData', ['$scope', '$cookieStore', function($scope, $cookieSt
       $scope.user_data = $cookieStore.get('globals').currentUser;        
       }
       else{
-        console.log('i would have logged o but no show')
+        // console.log('i would have logged o but no show')
       }  
 
 }]);

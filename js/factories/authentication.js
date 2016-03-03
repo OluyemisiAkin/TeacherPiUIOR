@@ -14,7 +14,7 @@ app.factory('AuthenticationService', ['$http', '$cookieStore', '$rootScope',
         }
 
         factory.Logout = function Logout(){   
-            $http.delete(baseUrl+'student/logout/')
+            $http.delete(baseUrl+'user/logout/')
                 .success(function (response){
                     factory.ClearCredentials()
                 })

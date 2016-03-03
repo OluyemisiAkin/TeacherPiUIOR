@@ -36,8 +36,13 @@ app.controller('Attendance', ['$scope', '$http', '$state', '$cookieStore','$filt
         $scope.found = true;
       })
       .error(function (data, status, headers){
-        $scope.addAlert('danger', 'Error loading course list');
-        $scope.httpStatus1 = true;
+        if (status == 401){
+         $state.go('access.signin',{logout:true, msg:'Session timed out or you ended the class!'});
+        }
+        else{
+          $scope.addAlert('danger', 'Error loading course list');
+          $scope.httpStatus1 = true;
+        }
       });
 
     $scope.loadList = function(code){
@@ -72,8 +77,13 @@ app.controller('Attendance', ['$scope', '$http', '$state', '$cookieStore','$filt
             for (var i = $scope.alerts.length - 1; i >= 0; i--) {
               $scope.closeAlert(i);
             };
-            $scope.addAlert('danger', 'Error loading attendance list');
-            $scope.httpStatus1 = true;
+            if (status == 401){
+                $state.go('access.signin',{logout:true, msg:'Session timed out or you ended the class!'});
+            }
+            else{
+              $scope.addAlert('danger', 'Error loading attendance list');
+              $scope.httpStatus1 = true;
+            }
           });
       }    
     }
