@@ -317,7 +317,7 @@ app.controller('Course', ['$scope', '$http', '$state', '$cookieStore','$statePar
    /**** Download attendance list *** just copied and pasted from attendance.js, can make dis better 
    ***** by making the export a service***/
 
-   $scope.downloadList = function(code){      
+   $scope.downloadList = function(code){  
       if (code != undefined){
          $http.get(baseUrl+'attendance/attendance_list/'+code+'/')
           .success(function (response) {
@@ -325,6 +325,7 @@ app.controller('Course', ['$scope', '$http', '$state', '$cookieStore','$statePar
               $scope.closeAlert(i);
             };
             $scope.students= response;
+
             $scope.exportData = [];
 
             var newd = $filter('date')($scope.students[0]['timestamp'], 'mediumTime')
@@ -333,6 +334,9 @@ app.controller('Course', ['$scope', '$http', '$state', '$cookieStore','$statePar
                                               date: $filter('date')($scope.students[student]['timestamp'] *1000, 'mediumDate'),
                                               time: $filter('date')($scope.students[student]['timestamp'] *1000, 'mediumTime')})
             }
+              console.log($scope.exportData)  
+              return $scope.exportData
+
             $scope.count = $scope.students.length
             $scope.httpStatus2 = true;
             if ($scope.students.length == 0){
@@ -343,6 +347,7 @@ app.controller('Course', ['$scope', '$http', '$state', '$cookieStore','$statePar
             $scope.found2 = true;
           })
           .error(function (data, status, headers){
+            console.log(error)
             for (var i = $scope.alerts.length - 1; i >= 0; i--) {
               $scope.closeAlert(i);
             };

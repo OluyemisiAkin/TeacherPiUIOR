@@ -29,12 +29,14 @@
         <button class="btn btn-default font-bold m" ng-click="open('lg')">Edit Course</button>
         </span>         -->
         <button class="btn btn-default font-bold m" ng-click="editCourse(course)">Edit Course</button>
-        <button class="btn btn-default font-bold m" ng-click="deleteCourse(course)"><span class="glyphicon glyphicon-trash"></span></button>        
-        <button type="submit" class="btn btn-danger pull-right font-bold m" ng-click="stopClass(course.course_code)" ng-disabled="!course.started">
+        <button class="btn btn-default font-bold m" ng-click="deleteCourse(course)"><span class="glyphicon glyphicon-trash"></span></button>       
+        <!-- ng-click="stopClass(course.course_code)"   -->
+        <button type="submit" class="btn btn-danger pull-right font-bold m"  ng-click="stopClass(course.course_code)" ng-disabled="!course.started">
               <span class="text" ng-hide="loading">Stop Class</span>
               <span class="text" ng-show="loading">Stopping...</span> 
               <i class="fa fa-spin fa-spinner" ng-show="loading"  ng-class="{'fa-spin' : loading}"id="spin"></i>
         </button>
+        <!-- <button class="btn btn-sm btn-1success" ng-csv="exportData" csv-header="getHeader()" filename="attendance.csv">Export Data</button>  -->
         <button type="submit" class="btn btn-success pull-right font-bold m" ng-click="startClass(course.course_code, course.duration)" ng-disabled="course.started">
               <span class="text" ng-hide="loading">Start Class</span>
               <span class="text" ng-show="loading">Starting...</span> 

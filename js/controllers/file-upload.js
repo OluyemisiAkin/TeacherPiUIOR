@@ -1,6 +1,14 @@
-app.controller('FileUploadCtrl', ['$scope', 'FileUploader', function($scope, FileUploader) {
+app.controller('FileUploadCtrl', ['$scope', 'FileUploader', '$cookieStore','$http', function($scope, FileUploader,$cookieStore,$http) {
+     if ($cookieStore.get('globals') != undefined){
+        $scope.user_data = $cookieStore.get('globals').currentUser;
+        $http.defaults.headers.common['Authorization'] = 'Token ' + $scope.user_data.token;
+        console.log($http.defaults.headers.common['Authorization'])
+    }else{
+      $state.go('access.signin');
+    }
+        
     var uploader = $scope.uploader = new FileUploader({
-        url: 'js/controllers/upload.php'
+        url: baseUrl+'file/upload/'
     });
 
     // FILTERS

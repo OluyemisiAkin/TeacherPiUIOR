@@ -24,11 +24,19 @@ app.controller('Signin', ['$scope', '$http', '$state', 'AuthenticationService','
     if($stateParams.msg){
       $scope.addAlert('warning', $stateParams.msg);
     }
+    
+    
 
     (function initController () {
       AuthenticationService.ClearCredentials();
     })();
-   
+
+    var rightNow = new Date()
+    $http.get(baseUrl+'user/house_keeping/'+rightNow+'/')
+      .success(function (response){
+      })
+      .error(function (response){
+      })   
     
     $scope.login = function(user_type){
       $scope.loading = true;

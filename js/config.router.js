@@ -140,7 +140,7 @@ angular.module('app')
                   }
               })
               .state('app2.instructor.course', {
-                  url: '/course',
+                  url: '/course/list',
                   templateUrl: 'tpl/instructor/course.html',
                   params:{
                     msg:null
@@ -163,7 +163,7 @@ angular.module('app')
                   }
               })
               .state('app2.instructor.course-create', {
-                  url: '/create',
+                  url: '/course/create',
                   templateUrl: 'tpl/instructor/create-course.html',
                   params: {
                         to_edit: null
@@ -173,6 +173,20 @@ angular.module('app')
                       function( uiLoad ){
                         return uiLoad.load(['js/controllers/instructor/course.js']);
                     }]
+                  }
+              })
+              .state('app2.instructor.materials', {
+                  url: '/class/materials',
+                  templateUrl: 'tpl/instructor/class-materials.html',                  
+                  resolve: {
+                   deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad){
+                          return $ocLazyLoad.load('angularFileUpload').then(
+                              function(){
+                                 return $ocLazyLoad.load('js/controllers/file-upload.js');
+                              }
+                          );
+                      }]
                   }
               })
               .state('app2.instructor.quiz', {
