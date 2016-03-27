@@ -1,4 +1,4 @@
-app.controller('FileUploadCtrl', ['$scope', 'FileUploader', '$cookieStore','$http', function($scope, FileUploader,$cookieStore,$http) {
+app.controller('MaterialUploadCtrl', ['$scope', 'FileUploader', '$cookieStore','$http', function($scope, FileUploader,$cookieStore,$http) {
     $scope.alerts =[];
     $scope.selected_course= "";
     $scope.addAlert = function(type,message) {

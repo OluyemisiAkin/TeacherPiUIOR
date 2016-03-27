@@ -154,7 +154,7 @@ angular.module('app')
               })
               .state('app2.instructor.attendance', {
                   url: '/course/attendance',
-                  templateUrl: 'tpl/instructor/course-attendance.html',
+                  templateUrl: 'tpl/instructor/course_attendance.html',
                   resolve: {
                     deps: ['uiLoad',
                       function( uiLoad ){
@@ -175,18 +175,33 @@ angular.module('app')
                     }]
                   }
               })
-              .state('app2.instructor.materials', {
-                  url: '/class/materials',
-                  templateUrl: 'tpl/instructor/class-materials.html',                  
+              .state('app2.instructor.upload-materials', {
+                  url: '/class/materials/upload/',
+                  templateUrl: 'tpl/instructor/upload_materials.html',                  
                   resolve: {
                    deps: ['$ocLazyLoad',
                         function( $ocLazyLoad){
                           return $ocLazyLoad.load('angularFileUpload').then(
                               function(){
-                                 return $ocLazyLoad.load('js/controllers/file-upload.js');
+                                 return $ocLazyLoad.load('js/controllers/instructor/upload_materials.js');
                               }
                           );
                       }]
+                  }
+              })
+              .state('app2.instructor.manage-materials', {
+                  url: '/class/materials/manage/',
+                  templateUrl: 'tpl/instructor/manage_materials.html',                  
+                  resolve: {
+                      deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                          return $ocLazyLoad.load('angularBootstrapNavTree').then(
+                              function(){
+                                 return $ocLazyLoad.load('js/controllers/instructor/manage_materials.js');
+                              }
+                          );
+                        }
+                      ]
                   }
               })
               .state('app2.instructor.quiz', {
