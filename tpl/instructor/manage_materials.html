@@ -1,25 +1,70 @@
-<div class="hbox hbox-auto-xs hbox-auto-sm" ng-controller="AbnTestController">  
-  <div class="col">
-    <div class="wrapper-md">
-      <div class="b-a bg-light dk r r-2x">
-        <span ng-if="doing_async">...loading...</span>
-        <abn-tree 
-          tree-data         = "my_data" 
-          tree-control      = "my_tree" 
-          on-select         = "my_tree_handler(branch)" 
-          expand-level      = "2" 
-          initial-selection = "Granny Smith"
-          icon-leaf         = "fa fa-file-o"
-          icon-expand       = "fa fa-plus"
-          icon-collapse     = "fa fa-minus"
-          >
-        </abn-tree>
+<div class="hbox hbox-auto-xs hbox-auto-sm" ng-controller="MaterialManageCtrl">
+  <div class="col w-lg bg-light b-r bg-auto">  
+    <div class="wrapper-md dker b-b">
+      <h3 class="m-n font-thin">Select Course</h3>
+    </div>    
+    <div class="wrapper-md">      
+      <div class="text-center" ng-hide="httpStatus1">
+        <h4 class="text-center"><span><i class="fa fa-spinner fa-rotate-270 fa-spin"></i> Loading Courses....</span></h4>
       </div>
+      <div class="col-sm-12">
+        <select name="course" class="form-control m-b btn-primary" ng-options="course.course_code | uppercase for course in courses " ng-model="selected_course" ng-click="loadList(selected_course.course_code)">
+        <option style="display:none" value="">Select a course</option>
+        </select>
+      </div>                  
     </div>
   </div>
   <div class="col">
+    <div class="wrapper-md bg-light dk b-b">      
+      <h3 class="m-n font-thin">Uploaded Files</h3>      
+    </div>
     <div class="wrapper-md">
-      <div class="alert alert-info">{{output}}</div>
+    <div class="text-center" ng-hide="httpStatus2">
+        <h4 class="text-center"><span><i class="fa fa-spinner fa-rotate-270 fa-spin"></i> Loading File List....</span></h4>
+      </div>
+    <div class="col-sm-12">
+      <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+    </div>
+      <table class="table bg-white-only b-a" ng-show="found2">
+          <thead>
+              <tr>
+                  <th width="50%">Name</th>
+                  <th width="20%">Size</th>
+                  <th width="30%">Time of upload</th>
+                  <th>Actions</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr ng-repeat="item in uploader.queue">
+                  <td><strong>{{ item.file.name }}</strong></td>
+                  <td ng-show="uploader.isHTML5" nowrap>{{ item.file.size/1024|number:2 }} kB</td>
+                  <td ng-show="uploader.isHTML5">
+                      <div class="progress progress-sm m-b-none m-t-xs">
+                          <div class="progress-bar bg-info" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
+                      </div>
+                  </td>
+                  <td class="text-center">
+                      <span ng-show="item.isSuccess" class="text-success"><i class="glyphicon glyphicon-ok"></i></span>
+                      <span ng-show="item.isCancel" class="text-warning"><i class="glyphicon glyphicon-ban-circle"></i></span>
+                      <span ng-show="item.isError" class="text-danger"><i class="glyphicon glyphicon-remove"></i></span>
+                  </td>
+                  <td nowrap>
+                      <button type="button" class="btn btn-default btn-xs" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
+                          Upload
+                      </button>
+                      <button type="button" class="btn btn-default btn-xs" ng-click="item.upload()" ng-disabled="!item.isSuccess">
+                          Preview
+                      </button>
+                      <button type="button" class="btn btn-default btn-xs" ng-click="item.cancel()" ng-disabled="!item.isUploading">
+                          Cancel
+                      </button>
+                      <button type="button" class="btn btn-default btn-xs" ng-click="item.remove()">
+                          Remove
+                      </button>
+                  </td>
+              </tr>
+          </tbody>
+      </table>      
     </div>
   </div>
 </div>

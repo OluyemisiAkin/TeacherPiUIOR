@@ -188,20 +188,15 @@ angular.module('app')
                           );
                       }]
                   }
-              })
+              })              
               .state('app2.instructor.manage-materials', {
                   url: '/class/materials/manage/',
                   templateUrl: 'tpl/instructor/manage_materials.html',                  
                   resolve: {
-                      deps: ['$ocLazyLoad',
-                        function( $ocLazyLoad ){
-                          return $ocLazyLoad.load('angularBootstrapNavTree').then(
-                              function(){
-                                 return $ocLazyLoad.load('js/controllers/instructor/manage_materials.js');
-                              }
-                          );
-                        }
-                      ]
+                    deps: ['uiLoad',
+                      function( uiLoad ){
+                        return uiLoad.load(['js/controllers/instructor/manage_materials.js']);
+                    }]
                   }
               })
               .state('app2.instructor.quiz', {

@@ -4,7 +4,10 @@
       <h3 class="m-n font-thin">Select files</h3>
     </div>    
     <div class="wrapper-md">      
-      <div class="col-sm-12">
+      <div class="text-center" ng-hide="httpStatus1">
+        <h4 class="text-center"><span><i class="fa fa-spinner fa-rotate-270 fa-spin"></i> Loading Courses....</span></h4>
+      </div>
+      <div class="col-sm-12" ng-show="found">
         <select name="course" class="form-control m-b btn-primary" ng-options="course.course_code | uppercase for course in courses " ng-model="selected_course" ng-click="selected=true">
         <option style="display:none" value="">Select a course</option>
         </select>        
@@ -74,8 +77,7 @@
         </button>
         <button type="button" class="btn btn-addon btn-danger" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">
             <i class="fa fa-trash-o"></i> Remove all
-        </button>
-        <p class="text-muted m-t-xl">Note: upload.php file included, files will be uploaded to "src/js/controllers/uploads".</p>
+        </button>        
       </div>
     </div>
   </div>
