@@ -5,11 +5,11 @@
     </div>    
     <div class="wrapper-md">      
       <div class="col-sm-12">
-        <select name="course" class="form-control m-b btn-primary" ng-options="course.course_code | uppercase for course in courses " ng-model="selected_course" ng-click="upload_file(selected_course.course_code)">
+        <select name="course" class="form-control m-b btn-primary" ng-options="course.course_code | uppercase for course in courses " ng-model="selected_course" ng-click="selected=true">
         <option style="display:none" value="">Select a course</option>
         </select>        
       </div>            
-      <input class="col-sm-12" type="file" nv-file-select="" uploader="uploader" multiple  /> 
+      <input ng-disabled="!selected" class="col-sm-12" type="file" nv-file-select="" uploader="uploader" multiple  /> 
     </div>
   </div>
   <div class="col">

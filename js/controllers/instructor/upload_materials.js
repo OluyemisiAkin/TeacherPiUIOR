@@ -1,6 +1,7 @@
 app.controller('MaterialUploadCtrl', ['$scope', 'FileUploader', '$cookieStore','$http', function($scope, FileUploader,$cookieStore,$http) {
     $scope.alerts =[];
     $scope.selected_course= "";
+    $scope.selected= false;
     $scope.addAlert = function(type,message) {
       $scope.alerts.push({type: type, msg: message});
     };
@@ -43,7 +44,6 @@ app.controller('MaterialUploadCtrl', ['$scope', 'FileUploader', '$cookieStore','
         headers : {'Authorization': 'Token ' + $scope.user_data.token},
         url: baseUrl+'file/upload/'
     });
-    console.log(uploader['headers']['Authorization'])
 
     // FILTERS
 
