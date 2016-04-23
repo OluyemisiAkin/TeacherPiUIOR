@@ -6,7 +6,6 @@ app.controller('MaterialManageCtrl', ['$scope', '$http', '$state', '$cookieStore
     $scope.httpStatus2 = true;
     $scope.found = false;
     $scope.found2 = false;    
-    $scope.new_student="";
 
     $scope.addAlert = function(type,message) {
       $scope.alerts.push({type: type, msg: message});
@@ -65,6 +64,7 @@ app.controller('MaterialManageCtrl', ['$scope', '$http', '$state', '$cookieStore
             // var newd = $filter('date')($scope.files[0]['timestamp'], 'mediumTime')
             for (var file in $scope.files) {
               console.log($scope.files[file])
+              $scope.file_item = $scope.files[file]
               
             }
             $scope.count = $scope.files.length
@@ -79,8 +79,8 @@ app.controller('MaterialManageCtrl', ['$scope', '$http', '$state', '$cookieStore
                 $state.go('access.signin',{logout:true, msg:'Session timed out or you ended the class!'});
             }
             else{
-              $scope.addAlert('danger', 'Error loading attendance list');
-              $scope.httpStatus1 = true;
+              $scope.addAlert('danger', 'Error loading file list');
+              $scope.httpStatus2 = true;
             }
           });
       }    

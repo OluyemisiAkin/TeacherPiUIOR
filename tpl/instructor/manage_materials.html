@@ -35,31 +35,14 @@
               </tr>
           </thead>
           <tbody>
-              <tr ng-repeat="item in uploader.queue">
-                  <td><strong>{{ item.file.name }}</strong></td>
-                  <td ng-show="uploader.isHTML5" nowrap>{{ item.file.size/1024|number:2 }} kB</td>
-                  <td ng-show="uploader.isHTML5">
-                      <div class="progress progress-sm m-b-none m-t-xs">
-                          <div class="progress-bar bg-info" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
-                      </div>
-                  </td>
-                  <td class="text-center">
-                      <span ng-show="item.isSuccess" class="text-success"><i class="glyphicon glyphicon-ok"></i></span>
-                      <span ng-show="item.isCancel" class="text-warning"><i class="glyphicon glyphicon-ban-circle"></i></span>
-                      <span ng-show="item.isError" class="text-danger"><i class="glyphicon glyphicon-remove"></i></span>
-                  </td>
-                  <td nowrap>
-                      <button type="button" class="btn btn-default btn-xs" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
-                          Upload
-                      </button>
-                      <button type="button" class="btn btn-default btn-xs" ng-click="item.upload()" ng-disabled="!item.isSuccess">
-                          Preview
-                      </button>
-                      <button type="button" class="btn btn-default btn-xs" ng-click="item.cancel()" ng-disabled="!item.isUploading">
-                          Cancel
-                      </button>
-                      <button type="button" class="btn btn-default btn-xs" ng-click="item.remove()">
-                          Remove
+              <tr ng-repeat="file in files">
+                  <td><strong>{{file.file_name }}</strong></td>
+                  <td nowrap>{{file.size/1024|number:2 }} kB</td>
+                  <td>{{file.date}}</td>                  
+                  <td nowrap>                      
+                      <button type="button" class="btn btn-primary btn-xs" ng-click="item.upload()">Preview
+                      </button>                      
+                      <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()"> <span class="glyphicon glyphicon-trash"></span>                          
                       </button>
                   </td>
               </tr>
