@@ -63,9 +63,7 @@ app.controller('MaterialManageCtrl', ['$scope', '$http', '$state', '$cookieStore
             
             // var newd = $filter('date')($scope.files[0]['timestamp'], 'mediumTime')
             for (var file in $scope.files) {
-              console.log($scope.files[file])
-              $scope.file_item = $scope.files[file]
-              
+              $scope.file_item = $scope.files[file]              
             }
             $scope.count = $scope.files.length
             $scope.httpStatus2 = true;           
@@ -85,7 +83,82 @@ app.controller('MaterialManageCtrl', ['$scope', '$http', '$state', '$cookieStore
           });
       }    
     }
-    $scope.getHeader = function () {return ['Matric Number', 'Date', 'Time']};
+    
+    $scope.delete = function(file_name){
+      $scope.loading = true;
+      console.log(file_name)
+      $http.delete(baseUrl+'file/delete_file/'+file_name+'/')
+      .success(function (response) {
+        for (var i = $scope.alerts.length - 1; i >= 0; i--) {
+            $scope.closeAlert(i);
+          };
+        $scope.courses= response;
+        $scope.httpStatus1 = true;
+        if ($scope.courses.length == 0){
+          $scope.addAlert('warning','No registered courses found!');
+          return;
+        }
+        $scope.found = true;
+      })
+      .error(function (data, status, headers){
+        console.log(data)
+        if (status == 401){
+         $state.go('access.signin',{logout:true, msg:'Session timed out or you ended the class!'});
+        }
+        else{
+          $scope.addAlert('danger', 'Error loading deleting file');
+          $scope.httpStatus1 = true;
+        }
+      });
+
+    }
+
+    $scope.convertToSlides = function(course_code, file_name){
+      file_name = file_name.split(".")[0]
+       $http.get(baseUrl+'projector/convert_to_slide/'+course_code+'/'+file_name+'/')
+        .success(function (response) {
+            $scope.addAlert('success', response);           
+        })
+        .error(function (data, status, headers){
+            if (status == 401){
+                $state.go('access.signin',{logout:true, msg:'Session timed out or you ended the class!'});
+            }
+            else{
+                $scope.addAlert('danger', data);
+                $scope.httpStatus1 = true;
+            }
+        });
+    }
+
+   //  $scope.delete = function (file_name){
+   //    $http({
+   //          method: 'DELETE',
+   //          url: baseUrl+'file/delete_file/',
+   //          headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+   //          transformRequest: function(obj) {
+   //            var str = [];
+   //          for(var p in obj)
+   //            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+   //          return str.join("&");
+   //          },
+   //          data: {file_name: file_name}
+   //        })
+   //        .success(function (response){
+   //          $scope.addAlert('success',file_name + ' deleted succesfully')            
+   //          $scope.loading = false;
+   //          // $state.reload();
+   //        })
+   //        .error(function (data,status,header){
+   //        if (status == 401){
+   //          $state.go('access.signin',{logout:true, msg:'Session timed out!'});
+   //        }
+   //        else{
+   //          $scope.addAlert('danger','Error deleting file')
+   //          $scope.loading = false;          
+   //        }
+   //        });
+   // }
+
 
      
 

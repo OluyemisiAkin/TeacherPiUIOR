@@ -1,4 +1,4 @@
-app.controller('MaterialUploadCtrl', ['$scope', 'FileUploader', '$cookieStore','$http', function($scope, FileUploader,$cookieStore,$http) {
+app.controller('MaterialUploadCtrl', ['$scope', 'FileUploader', '$cookieStore','$http','$state', function($scope, FileUploader,$cookieStore,$http,$state) {
     $scope.alerts =[];
     $scope.selected_course= "";
     $scope.httpStatus1 = true;
@@ -17,10 +17,7 @@ app.controller('MaterialUploadCtrl', ['$scope', 'FileUploader', '$cookieStore','
     }
 
     $http.get(baseUrl+'course/')
-    .success(function (response) {
-        for (var i = $scope.alerts.length - 1; i >= 0; i--) {
-            $scope.closeAlert(i);
-        };
+    .success(function (response) {        
         $scope.courses= response;
         $scope.httpStatus1 = true;
         if ($scope.courses.length == 0){
@@ -89,8 +86,8 @@ app.controller('MaterialUploadCtrl', ['$scope', 'FileUploader', '$cookieStore','
     //     console.info('onCompleteItem', fileItem, response, status, headers);
     // };
     // uploader.onCompleteAll = function() {
-    //     console.info('onCompleteAll');
-    // };
+       
 
-    // console.info('uploader', uploader);
+    // };
+    // // console.info('uploader', uploader);
 }]);
