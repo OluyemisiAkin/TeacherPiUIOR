@@ -84,40 +84,45 @@ app.controller('MaterialManageCtrl', ['$scope', '$http', '$state', '$cookieStore
       }    
     }
     
-    $scope.delete = function(file_name){
+    $scope.delete = function(course_code, file_name){
       $scope.loading = true;
-      console.log(file_name)
-      $http.delete(baseUrl+'file/delete_file/'+file_name+'/')
+      $http.delete(baseUrl+'file/delete_file/'+course_code+'/'+file_name+'/')
       .success(function (response) {
         for (var i = $scope.alerts.length - 1; i >= 0; i--) {
             $scope.closeAlert(i);
           };
-        $scope.courses= response;
-        $scope.httpStatus1 = true;
-        if ($scope.courses.length == 0){
-          $scope.addAlert('warning','No registered courses found!');
-          return;
+        if (response.search("not") !=-1){
+          $scope.addAlert('danger', response)
         }
-        $scope.found = true;
+        else{
+          $scope.addAlert('success','Successfully deleted '+ file_name);          
+        }
+        $scope.loading = false;
       })
       .error(function (data, status, headers){
-        console.log(data)
         if (status == 401){
          $state.go('access.signin',{logout:true, msg:'Session timed out or you ended the class!'});
         }
         else{
-          $scope.addAlert('danger', 'Error loading deleting file');
-          $scope.httpStatus1 = true;
+          $scope.addAlert('danger', 'Error deleting file');
         }
+        $scope.loading = true;
       });
 
     }
 
     $scope.convertToSlides = function(course_code, file_name){
-      file_name = file_name.split(".")[0]
+      // file_name = file_name.split(".")[0]
+      $scope.loading = true;
        $http.get(baseUrl+'projector/convert_to_slide/'+course_code+'/'+file_name+'/')
         .success(function (response) {
-            $scope.addAlert('success', response);           
+          if (response.search("not")!=-1){
+            $scope.addAlert('danger', response);                     
+          }
+          else{
+            $scope.addAlert('success', response);  
+          }
+          $scope.loading = false;
         })
         .error(function (data, status, headers){
             if (status == 401){
@@ -125,8 +130,8 @@ app.controller('MaterialManageCtrl', ['$scope', '$http', '$state', '$cookieStore
             }
             else{
                 $scope.addAlert('danger', data);
-                $scope.httpStatus1 = true;
             }
+            $scope.loading = false;
         });
     }
 

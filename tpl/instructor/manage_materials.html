@@ -43,8 +43,9 @@
                       <button type="button" class="btn btn-primary btn-xs" ng-click="item.upload()">Preview
                       </button> 
                       <button type="button" class="btn btn-info btn-xs" ng-click="convertToSlides(selected_course.course_code,file.file_name)">Convert
+                      <i class="fa fa-spin fa-spinner" ng-show="loading"  ng-class="{'fa-spin' : loading}"id="spin"></i>
                       </button>                      
-                      <button type="button" class="btn btn-danger btn-xs" ng-click="delete(file.file_name)"> <span class="glyphicon glyphicon-trash">
+                      <button type="button" class="btn btn-danger btn-xs" ng-click="delete(selected_course.course_code,file.file_name)"> <span class="glyphicon glyphicon-trash">
                         <i class="fa fa-spin fa-spinner" ng-show="loading"  ng-class="{'fa-spin' : loading}"id="spin"></i>
                       </span>                 
                       </button>
