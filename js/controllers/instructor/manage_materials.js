@@ -106,14 +106,14 @@ app.controller('MaterialManageCtrl', ['$scope', '$http', '$state', '$cookieStore
         else{
           $scope.addAlert('danger', 'Error deleting file');
         }
-        $scope.loading = true;
+        $scope.loading = false;
       });
 
     }
 
     $scope.convertToSlides = function(course_code, file_name){
       // file_name = file_name.split(".")[0]
-      $scope.loading = true;
+      $scope.loading2 = true;
        $http.get(baseUrl+'projector/convert_to_slide/'+course_code+'/'+file_name+'/')
         .success(function (response) {
           if (response.search("not")!=-1){
@@ -122,7 +122,7 @@ app.controller('MaterialManageCtrl', ['$scope', '$http', '$state', '$cookieStore
           else{
             $scope.addAlert('success', response);  
           }
-          $scope.loading = false;
+          $scope.loading2 = false;
         })
         .error(function (data, status, headers){
             if (status == 401){
@@ -131,7 +131,7 @@ app.controller('MaterialManageCtrl', ['$scope', '$http', '$state', '$cookieStore
             else{
                 $scope.addAlert('danger', data);
             }
-            $scope.loading = false;
+            $scope.loading2 = false;
         });
     }
 
