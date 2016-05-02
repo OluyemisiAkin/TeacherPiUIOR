@@ -1,5 +1,5 @@
 'use strict';
-app.controller('MaterialManageCtrl', ['$scope', '$http', '$state', '$cookieStore','$filter',function($scope, $http, $state, $cookieStore, $filter) {
+app.controller('MaterialManageCtrl', ['$scope', '$http', '$state', '$cookieStore','$window',function($scope, $http, $state, $cookieStore, $window) {
     $scope.alerts = [];
     $scope.courses = {};
     $scope.httpStatus1 = false;
@@ -61,7 +61,6 @@ app.controller('MaterialManageCtrl', ['$scope', '$http', '$state', '$cookieStore
               return;
             }
             
-            // var newd = $filter('date')($scope.files[0]['timestamp'], 'mediumTime')
             for (var file in $scope.files) {
               $scope.file_item = $scope.files[file]              
             }
@@ -133,6 +132,13 @@ app.controller('MaterialManageCtrl', ['$scope', '$http', '$state', '$cookieStore
             }
             $scope.loading2 = false;
         });
+    }
+
+    $scope.viewFile = function(course_code, file_name){
+      file_name = file_name.split(".")[0]+'.html'
+      // $scope.loading2 = true;
+      window.open(baseUrl+'media/'+course_code+'/'+file_name+'/')
+      
     }
 
    //  $scope.delete = function (file_name){

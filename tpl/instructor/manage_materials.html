@@ -40,7 +40,7 @@
                   <td nowrap>{{file.size/1024|number:2 }} kB</td>
                   <td>{{file.date}}</td>                  
                   <td nowrap>                      
-                      <button type="button" class="btn btn-primary btn-xs" ng-click="item.upload()">Preview
+                      <button type="button" class="btn btn-primary btn-xs" ng-click="viewFile(selected_course.course_code,file.file_name)">View
                       </button> 
                       <button type="button" class="btn btn-info btn-xs" ng-click="convertToSlides(selected_course.course_code,file.file_name)">Convert
                       <i class="fa fa-spin fa-spinner" ng-show="loading2"  ng-class="{'fa-spin' : loading}"id="spin"></i>
