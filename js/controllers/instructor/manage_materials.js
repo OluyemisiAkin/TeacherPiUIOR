@@ -141,37 +141,5 @@ app.controller('MaterialManageCtrl', ['$scope', '$http', '$state', '$cookieStore
       
     }
 
-   //  $scope.delete = function (file_name){
-   //    $http({
-   //          method: 'DELETE',
-   //          url: baseUrl+'file/delete_file/',
-   //          headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-   //          transformRequest: function(obj) {
-   //            var str = [];
-   //          for(var p in obj)
-   //            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-   //          return str.join("&");
-   //          },
-   //          data: {file_name: file_name}
-   //        })
-   //        .success(function (response){
-   //          $scope.addAlert('success',file_name + ' deleted succesfully')            
-   //          $scope.loading = false;
-   //          // $state.reload();
-   //        })
-   //        .error(function (data,status,header){
-   //        if (status == 401){
-   //          $state.go('access.signin',{logout:true, msg:'Session timed out!'});
-   //        }
-   //        else{
-   //          $scope.addAlert('danger','Error deleting file')
-   //          $scope.loading = false;          
-   //        }
-   //        });
-   // }
-
-
-     
-
 
 }]);

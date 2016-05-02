@@ -1,0 +1,38 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm" ng-controller="CourseMaterialCtrl">  
+  <div class="col">
+    <div class="wrapper-md bg-light dk b-b">      
+      <h3 class="m-n font-thin">Uploaded Files</h3>      
+    </div>
+    <div class="wrapper-md">
+    <div class="text-center" ng-hide="httpStatus1">
+        <h4 class="text-center"><span><i class="fa fa-spinner fa-rotate-270 fa-spin"></i> Loading File List....</span></h4>
+      </div>
+    <div class="col-sm-12">
+      <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+    </div>
+      <table class="table bg-white-only b-a" ng-show="found2">
+          <thead>
+              <tr>
+                  <th width="50%">Name</th>
+                  <th width="20%">Size</th>
+                  <th width="30%">Time of upload</th>
+                  <th>Actions</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr ng-repeat="file in files">
+                  <td><strong>{{file.file_name}}</strong></td>
+                  <td nowrap>{{file.size/1024|number:2 }} kB</td>
+                  <td>{{file.date}}</td>                  
+                  <td nowrap>                      
+                      <button type="button" class="btn btn-primary btn-xs" ng-click="viewFile(file.file_name)">View
+                      </button>                       
+                      </span>                 
+                      </button>
+                  </td>
+              </tr>
+          </tbody>
+      </table>      
+    </div>
+  </div>
+</div>

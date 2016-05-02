@@ -106,6 +106,16 @@ angular.module('app')
                     }]
                   }
               })
+              .state('app.student.course-materials', {
+                  url: '/class/materials/',
+                  templateUrl: 'tpl/student/course_materials.html',                  
+                  resolve: {
+                    deps: ['uiLoad',
+                      function( uiLoad ){
+                        return uiLoad.load(['js/controllers/student/course_materials.js']);
+                    }]
+                  }
+              })
 
               .state('app2', {
                   abstract: true,
@@ -209,8 +219,6 @@ angular.module('app')
                     }]
                   }
               })
-
-
 
 
 
