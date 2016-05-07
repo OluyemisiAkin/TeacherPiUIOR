@@ -137,7 +137,7 @@ app.controller('MaterialManageCtrl', ['$scope', '$http', '$state', '$cookieStore
     $scope.viewFile = function(course_code, file_name){
       file_name = file_name.split(".")[0]+'.html'
       // $scope.loading2 = true;
-      window.open(baseUrl+'media/'+course_code+'/'+file_name+'/')
+      window.open(baseUrl+'media/'+course_code+'/'+file_name)
       
     }
 
