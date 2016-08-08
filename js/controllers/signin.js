@@ -58,6 +58,7 @@ app.controller('Signin', ['$scope', '$http', '$state', 'AuthenticationService','
           for (var i = $scope.alerts.length - 1; i >= 0; i--) {
             $scope.closeAlert(i)
           };
+          console.log(error_response)
           if (error_response['non_field_errors']){
               $scope.addAlert('danger',error_response['non_field_errors'][0]);
           }

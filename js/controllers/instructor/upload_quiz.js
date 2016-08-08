@@ -1,9 +1,8 @@
-app.controller('MaterialUploadCtrl', ['$scope', 'FileUploader', '$cookieStore','$http','$state', function($scope, FileUploader,$cookieStore,$http,$state) {
+app.controller('QuizUploadCtrl', ['$scope', 'FileUploader', '$cookieStore','$http','$state', function($scope, FileUploader,$cookieStore,$http,$state) {
     $scope.alerts =[];
     $scope.selected_course= "";
-    $scope.file_type = "";
     $scope.httpStatus1 = true;
-    // $scope.selected= false;
+    $scope.selected= false;
     $scope.addAlert = function(type,message) {
       $scope.alerts.push({type: type, msg: message});
     };
@@ -64,8 +63,8 @@ app.controller('MaterialUploadCtrl', ['$scope', 'FileUploader', '$cookieStore','
     // uploader.onAfterAddingAll = function(addedFileItems) {
     //     console.info('onAfterAddingAll', addedFileItems);
     // };
-    uploader.onBeforeUploadItem = function(item) {   
-        item.url = baseUrl+'file/upload/'+ $scope.selected_course.course_code+'/'+$scope.file_type+'/';
+    uploader.onBeforeUploadItem = function(item) {  
+        item.url = baseUrl+'file/upload/'+ $scope.selected_course.course_code+'/';
         // console.info('onBeforeUploadItem', item);
     };
     // uploader.onProgressItem = function(fileItem, progress) {
@@ -85,7 +84,6 @@ app.controller('MaterialUploadCtrl', ['$scope', 'FileUploader', '$cookieStore','
     // };
     // uploader.onCompleteItem = function(fileItem, response, status, headers) {
     //     console.info('onCompleteItem', fileItem, response, status, headers);
-        
     // };
     // uploader.onCompleteAll = function() {
        

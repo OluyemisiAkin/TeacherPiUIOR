@@ -10,12 +10,7 @@
       <div class="col-sm-12" ng-show="found">
         <select name="course" class="form-control m-b btn-primary" ng-options="course.course_code | uppercase for course in courses " ng-model="selected_course" ng-click="selected=true">
         <option style="display:none" value="">Select a course</option>
-        </select><br> 
-        <select name="fileType" class="form-control m-b btn-info" ng-model="file_type" >
-          <option value="">Select file type</option>
-          <option value="quiz">Quiz</option> <!-- interpolation -->
-          <option value="notes">Notes</option>
-        </select><br>       
+        </select>        
       </div>            
       <input ng-disabled="!selected" class="col-sm-12" type="file" nv-file-select="" uploader="uploader" multiple  /> 
     </div>

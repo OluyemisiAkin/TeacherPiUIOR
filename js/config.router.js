@@ -210,24 +210,19 @@ angular.module('app')
                   }
               })
               .state('app2.instructor.quiz', {
-                  url: '/quiz',
-                  templateUrl: '',                  
+                  url: '/quiz/upload/',
+                  templateUrl: 'tpl/instructor/upload_quiz.html',                  
                   resolve: {
-                    deps: ['uiLoad',
-                      function( uiLoad ){
-                        return uiLoad.load(['']);
-                    }]
+                   deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad){
+                          return $ocLazyLoad.load('angularFileUpload').then(
+                              function(){
+                                 return $ocLazyLoad.load('js/controllers/instructor/upload_materials.js');
+                              }
+                          );
+                      }]
                   }
-              })
-
-
-
-
-
-
-
-
-
+              })            
 
               .state('app.cards', {
                   url: '/cards',
