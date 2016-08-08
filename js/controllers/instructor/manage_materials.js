@@ -94,7 +94,8 @@ app.controller('MaterialManageCtrl', ['$scope', '$http', '$state', '$cookieStore
           $scope.addAlert('danger', response)
         }
         else{
-          $scope.addAlert('success','Successfully deleted '+ file_name);          
+          $scope.addAlert('success','Successfully deleted '+ file_name);  
+          $scope.loadList(course_code);        
         }
         $scope.loading = false;
       })
@@ -120,6 +121,7 @@ app.controller('MaterialManageCtrl', ['$scope', '$http', '$state', '$cookieStore
           }
           else{
             $scope.addAlert('success', response);  
+            $scope.loadList(course_code);        
           }
           $scope.loading2 = false;
         })
