@@ -58,14 +58,15 @@ app.controller('MaterialUploadCtrl', ['$scope', 'FileUploader', '$cookieStore','
     // uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {
     //     console.info('onWhenAddingFileFailed', item, filter, options);
     // };
-    // uploader.onAfterAddingFile = function(fileItem) {
-    //     console.info('onAfterAddingFile', fileItem);
-    // };
+    uploader.onAfterAddingFile = function(fileItem) {
+        // console.info('onAfterAddingFile', fileItem);
+        fileItem.file_type = $scope.file_type
+    };
     // uploader.onAfterAddingAll = function(addedFileItems) {
     //     console.info('onAfterAddingAll', addedFileItems);
     // };
     uploader.onBeforeUploadItem = function(item) {   
-        item.url = baseUrl+'file/upload/'+ $scope.selected_course.course_code+'/'+$scope.file_type+'/';
+        item.url = baseUrl+'file/upload/'+ $scope.selected_course.course_code+'/'+item.file_type+'/';
         // console.info('onBeforeUploadItem', item);
     };
     // uploader.onProgressItem = function(fileItem, progress) {

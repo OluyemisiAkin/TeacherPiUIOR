@@ -63,7 +63,6 @@ app.controller('MaterialManageCtrl', ['$scope', '$http', '$state', '$cookieStore
             
             for (var file in $scope.files) {
               $scope.file_item = $scope.files[file] 
-              console.log($scope.file_item)             
             }
             $scope.count = $scope.files.length
             $scope.httpStatus2 = true;           
@@ -139,15 +138,17 @@ app.controller('MaterialManageCtrl', ['$scope', '$http', '$state', '$cookieStore
           $scope.loading2 = true;
            $http.get(baseUrl+'quiz/upload_quiz/'+course_code+'/'+file_name+'/')
             .success(function (response) {
-              if (response.search("not")!=-1){
-                $scope.addAlert('danger', response);                     
-              }
-              else{
-                $scope.addAlert('success', response);  
-              }
-              $scope.loading2 = false;
+              console.log(response)
+              // if (response.search("not")!=-1){
+              //   $scope.addAlert('danger', response);                     
+              // }
+              // else{
+              //   $scope.addAlert('success', response);  
+              // }
+              // $scope.loading2 = false;
             })
             .error(function (data, status, headers){
+              console.log(data)
                 if (status == 401){
                     $state.go('access.signin',{logout:true, msg:'Session timed out or you ended the class!'});
                 }

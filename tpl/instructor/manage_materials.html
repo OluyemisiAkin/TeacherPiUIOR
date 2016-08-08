@@ -44,7 +44,8 @@
                   <td nowrap>                      
                       <button type="button" class="btn btn-primary btn-xs" ng-click="viewFile(selected_course.course_code,file.file_name)">View
                       </button> 
-                      <button type="button" class="btn btn-info btn-xs" ng-click="convertToSlides(selected_course.course_code,file.file_name)">{{file.file_type == 'quiz' ? 'Process file' : 'Convert to slides' }}
+                      <button type="button" class="btn btn-info btn-xs" 
+                      ng-click="file.file_type == 'quiz' ? processQuiz(selected_course.course_code,file.file_name): convertToSlides(selected_course.course_code,file.file_name)">{{file.file_type == 'quiz' ? 'Process file' : 'Convert to slides' }}
                       <i class="fa fa-spin fa-spinner" ng-show="loading2"  ng-class="{'fa-spin' : loading}"id="spin"></i>
                       </button>                      
                       <button type="button" class="btn btn-danger btn-xs" ng-click="delete(selected_course.course_code,file.file_name)"> <span class="glyphicon glyphicon-trash">
