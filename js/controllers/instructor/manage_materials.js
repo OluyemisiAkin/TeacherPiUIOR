@@ -141,13 +141,13 @@ app.controller('MaterialManageCtrl', ['$scope', '$http', '$state', '$cookieStore
            $http.get(baseUrl+'quiz/upload_quiz/'+course_code+'/'+file_name+'/')
             .success(function (response) {
               console.log(response)
-              // if (response.search("not")!=-1){
-              //   $scope.addAlert('danger', response);                     
-              // }
-              // else{
-              //   $scope.addAlert('success', response);  
-              // }
-              // $scope.loading2 = false;
+              if (response.search("not")!=-1){
+                $scope.addAlert('danger', response);                     
+              }
+              else{
+                $scope.addAlert('success', response);  
+              }
+              $scope.loading2 = false;
             })
             .error(function (data, status, headers){
               console.log(data)
