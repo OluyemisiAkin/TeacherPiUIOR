@@ -121,7 +121,7 @@ app.controller('MaterialManageCtrl', ['$scope', '$http', '$state', '$cookieStore
           }
           else{
             $scope.addAlert('success', response);  
-            $scope.loadList(course_code);        
+            $scope.loadList(course_code);                                
           }
           $scope.loading2 = false;
         })
@@ -167,6 +167,12 @@ app.controller('MaterialManageCtrl', ['$scope', '$http', '$state', '$cookieStore
       // $scope.loading2 = true;
       window.open(baseUrl+'media/'+course_code+'/'+file_name)
       
+    }
+    $scope.isHtml = function(file_name){
+      var extension = file_name.split(".")[1]
+      if (extension == 'html'){
+        return true;
+      }
     }
 
 
