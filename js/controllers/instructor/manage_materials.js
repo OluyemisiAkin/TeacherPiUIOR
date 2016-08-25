@@ -144,6 +144,9 @@ app.controller('MaterialManageCtrl', ['$scope', '$http', '$state', '$cookieStore
               if (response.search("not")!=-1){
                 $scope.addAlert('danger', response);                     
               }
+              else if (response.search("already")!=-1){
+                $scope.addAlert('danger', response);                     
+              }
               else{
                 $scope.addAlert('success', response);  
               }

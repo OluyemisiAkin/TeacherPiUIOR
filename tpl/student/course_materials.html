@@ -20,7 +20,7 @@
               </tr>
           </thead>
           <tbody>
-              <tr ng-repeat="file in files" ng-if="file.file_type == 'notes'">
+              <tr ng-repeat="file in files" ng-if="file.file_type == 'NOTES'">
                   <td><strong>{{file.file_name}}</strong></td>
                   <td nowrap>{{file.size/1024|number:2 }} kB</td>
                   <td>{{file.date}}</td>                  

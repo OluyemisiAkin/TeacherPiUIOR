@@ -23,7 +23,6 @@ app.controller('CourseMaterialCtrl', ['$scope', '$http', '$state', '$cookieStore
     (function () {
       $http.get(baseUrl+'attendance/activeclass/').then(
         function (success_response){
-          console.log(success_response)
           $scope.httpStatus1 = true;
           if (success_response.data != 'There is no active course!'){
             $scope.activeClass = true;
@@ -59,9 +58,10 @@ app.controller('CourseMaterialCtrl', ['$scope', '$http', '$state', '$cookieStore
               $scope.found2 = false;
               $scope.httpStatus1 = true;  
               return;
-            }            
+            } 
+
             for (var file in $scope.files) {
-              $scope.file_item = $scope.files[file]              
+              $scope.file_item = $scope.files[file]  
             }
             $scope.count = $scope.files.length
             $scope.httpStatus1 = true;           
@@ -88,7 +88,20 @@ app.controller('CourseMaterialCtrl', ['$scope', '$http', '$state', '$cookieStore
       window.open(baseUrl+'media/'+course_code+'/'+file_name+'/')
       
     }
-     
 
+    // $scope.getQuiz = function(){
+    //       $scope.loading2 = true;
+    //        $http.get(baseUrl+'quiz/take_quiz/EEE101/State Machine/2/')
+    //         .success(function (response) {
+    //           console.log(response)
+              
+    //         })
+    //         .error(function (data, status, headers){
+    //           console.log(data)
+               
+    //         });
+    // }
+     
+    // $scope.getQuiz()
 
 }]);
